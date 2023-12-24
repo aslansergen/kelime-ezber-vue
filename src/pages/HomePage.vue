@@ -71,6 +71,8 @@ export default {
         btnAngryMenuName : "btnAngry",
       };
     },
+
+    
     methods:{
         allCategoryActive: function(){
             if(this.activeMenuCategory !== this.btnAllMenuName){
