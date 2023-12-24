@@ -1,0 +1,35 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    padding:0;
+    margin:0;
+    list-style-type: none; 
+}
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+body{
+    background:#47baea;
+    color:black;
+    overflow: hidden;
+    padding-bottom: 40px;
+}
+.border{border:1px solid red;}
+body .hiddenShow{
+    position: absolute;
+    top:45px;
+    right: 17px;
+    color:white;
+    font-weight: bold;
+    border:1px solid white;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+body h1{
+    position: relative;
+    top:10px;
+    font-family: 'Shadows Into Light', cursive;
+    color:white;
+    text-align: center;
+    font-size: 22px;
+    letter-spacing: 4px;
+}
