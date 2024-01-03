@@ -23,7 +23,7 @@
         </div>
         <div class="available">{{ activeWordNumber +1}}  </div>
         <div class="total"> {{ showingCategory.length  }} </div>
-        <button @click="activeWordNumber > 0 && activeWordNumber--" class="prev"> &lt; </button>
+        <button @click="prevWord" class="prev"> &lt; </button>
         <button @click="nextWord" class="next"> > </button>
     </div>
     <div class="menu">
@@ -104,6 +104,7 @@ export default {
                 }
                 const docRef = doc(db,'kelime-ezber',word.id)
                 await  updateDoc(docRef,updatedData);
+                this.activeWordNumber = this.activeWordNumber
             }
         },
         setAngryCategory: async function(word){
@@ -172,11 +173,19 @@ export default {
                     }
                 }
         },
-        
-       
+        prevWord : function(){
+            if(this.activeWordNumber  > 0  ){
+                this.activeWordNumber--
+            }else{
+                this.activeWordNumber = this.showingCategory.length-1;
+            }
+        },
         nextWord: function(){
-            this.activeWordNumber < this.showingCategory.length-1 && this.activeWordNumber++
-            console.log(this.activeWordNumber);
+            if(this.activeWordNumber < this.showingCategory.length-1){
+                this.activeWordNumber++
+            }else{
+                this.activeWordNumber = 0
+            }
         },
     },
     computed: {
