@@ -106,7 +106,6 @@ export default {
         /* yukarıdaki butonlar */
         setSmileCategory: async function(word){
             if(!this.showWord.btnSmile){
-                console.log('setSmileCategory');
                 this.changeWordCategory(this.ezberlenenKelime);
                 let  updatedData = {
                    ...word,
@@ -145,6 +144,7 @@ export default {
                 await  updateDoc(docRef,updatedData);
             }
         },
+
         /* alttaki 4lü butonlar */
         allCategoryActive: function(){
             if(this.activeMenuCategory !== this.btnAllMenuName){
@@ -248,6 +248,24 @@ export default {
         console.error('Veri alınırken hata oluştu:', error);
         }
         
+    },
+    watch :{
+        showingCategory: function(){
+            switch (this.activeMenuCategory) {
+                case this.btnAllMenuName:
+                    this.totalData = this.showingCategory;
+                    break;
+                case this.btnSmileMenuName:
+                    this.ezberlenenKelime = this.showingCategory;
+                    break;
+                case this.btnThinkMenuName:
+                    this.ezberlenecekKelime = this.showingCategory;
+                    break;
+                case this.btnAngryMenuName:
+                    this.bekleyenKelime = this.showingCategory;
+                    break;
+            }
+        }
     },
     components : {
         wordMeaning
