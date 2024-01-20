@@ -6,7 +6,7 @@
     <div class="content" v-if="show">
         <img class="wordImage" :src="showWord.resimYol">
         <div class="word">
-            <span>{{showWord.okunus}} </span>
+            <span>{{showWord.kelime}} </span>
             <div class="wordReading"> ( {{showWord.okunus}} )</div>
         </div>
         <div class="wordMeaning">
