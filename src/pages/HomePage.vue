@@ -1,10 +1,12 @@
 <template>
     <div class="hiddenShow">gizle/göster</div>
-    <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}dddd   </h1>
+    <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}  
+        <button @click="yaz">dddd</button>     
+    </h1>
     <div class="content" v-if="show">
         <img class="wordImage" :src="showWord.resimYol">
         <div class="word">
-            <span>{{showWord.okunus}} </span>
+            <span>{{showWord.kelime}} </span>
             <div class="wordReading"> ( {{showWord.okunus}} )</div>
         </div>
         <div class="wordMeaning">
@@ -78,6 +80,9 @@ export default {
       };
     },
     methods:{
+        yaz: function(){
+            console.log(this.showingCategory)
+        },
         /* kategoriyi değiştir */
         changeWordCategory: function(targetArr){
             if(this.showingCategory.length > 1){
@@ -149,6 +154,7 @@ export default {
         allCategoryActive: function(){
             if(this.activeMenuCategory !== this.btnAllMenuName){
                 console.log('allllllallll');
+                this.activeWordNumber = 0;
                 this.showingCategory = this.totalData;
                 this.activeMenuCategory =  this.btnAllMenuName;
             }
@@ -156,6 +162,7 @@ export default {
         smileCategoryActive: function(){
             if(!this.showWord.btnSmile){
                 console.log('ssssssssssssss');
+                this.activeWordNumber = 0;
                 this.showingCategory = this.ezberlenenKelime;
                 this.activeMenuCategory =  this.btnSmileMenuName;
             }
@@ -163,6 +170,7 @@ export default {
         thinkCategoryActive: function(){
             if(!this.showWord.btnThink){
                 console.log('lan lun lan lun');
+                this.activeWordNumber = 0;
                 this.showingCategory = this.ezberlenecekKelime;
                 this.activeMenuCategory =  this.btnThinkMenuName;
             }
@@ -170,6 +178,7 @@ export default {
         angryCategoryActive: function(){
             if(!this.showWord.btnAngry){
                 console.log('pat pat pat pat pat');
+                this.activeWordNumber = 0;
                 this.showingCategory = this.bekleyenKelime;
                 this.activeMenuCategory =  this.btnAngryMenuName;
             }
