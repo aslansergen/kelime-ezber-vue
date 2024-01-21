@@ -1,6 +1,6 @@
 <template>
     <div class="form">
-        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
+        <h2 class="pageTitle">Kelime Ekleme Sayfası <button @click="deleteResim">sil</button>  </h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -10,6 +10,7 @@
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Zarf  Kelimesi" v-model="wordData.zarf" :disabled="formDisabled">
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Fiil  Kelimesi" v-model="wordData.fiil" :disabled="formDisabled">
         <img v-if="uploadedImageShow" class="uploaded-image" :src="wordData.resimYol">
+        <button class="changeImage" v-if="changeImageBtnShow" @click="deleteResim">Farklı Resim Yükle</button>
         <label v-if="!uploadedImageShow" class="file-upload">
           <input type="file" ref="fileInput" @change="handleUpload" :disabled="fileUploadInputDisabled">
           {{fileUploadInputButtonText}}
@@ -20,7 +21,8 @@
 </template>
 <script>
 import {auth ,createUser,db,getDocs,getDoc,signInWithEmailAndPassword,
-  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL
+  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL,
+    deleteObject,
 } from '../firebase/config';
 export default {
     name: 'AddingNewWord',
@@ -54,6 +56,20 @@ export default {
         }
     },
     methods: {
+        deleteResim: async function(){
+            console.log('lan lun ');
+            const fileRef = ref(storage, this.wordData.resimYol);
+            try {
+                let cc = await deleteObject(fileRef);
+                this.wordData.resimYol = null;
+                this.uploadedImageShow = false;
+                console.log(cc);
+            } catch (error) {
+                console.log(error);
+            }
+          
+
+        },
         isDataValid: function(value){
             if(value !== null && value.trim() !== '' && value !== undefined){
                 return true;
@@ -160,8 +176,8 @@ export default {
         } 
     },
     computed: {
-        counter: function(){
-            return this.$store.state.wordToReplace
+        changeImageBtnShow: function(){
+            return  this.editActive && this.wordData.resimYol !== null;
         }
     },
     watch : {
@@ -259,10 +275,17 @@ h2{
 }
 .uploaded-image{
     width: 200px;
-    height: 150px;
     object-fit: contain;
 }
-
+.changeImage{
+    border: none;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
 .form .formWarningText{
     color:white;
     margin-top:20px;
