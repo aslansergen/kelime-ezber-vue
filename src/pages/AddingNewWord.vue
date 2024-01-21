@@ -1,6 +1,6 @@
 <template>
     <div class="form">
-        <h2 class="pageTitle">Kelime Ekleme Sayfası <button @click="deleteResim">sil</button>  </h2>
+        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -10,7 +10,7 @@
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Zarf  Kelimesi" v-model="wordData.zarf" :disabled="formDisabled">
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Fiil  Kelimesi" v-model="wordData.fiil" :disabled="formDisabled">
         <img v-if="uploadedImageShow" class="uploaded-image" :src="wordData.resimYol">
-        <button class="changeImage" v-if="changeImageBtnShow" @click="deleteResim">Farklı Resim Yükle</button>
+        <button class="changeImage" v-if="changeImageBtnShow" @click="deleteImage">Farklı Resim Yükle</button>
         <label v-if="!uploadedImageShow" class="file-upload">
           <input type="file" ref="fileInput" @change="handleUpload" :disabled="fileUploadInputDisabled">
           {{fileUploadInputButtonText}}
@@ -56,7 +56,7 @@ export default {
         }
     },
     methods: {
-        deleteResim: async function(){
+        deleteImage: async function(){
             console.log('lan lun ');
             const fileRef = ref(storage, this.wordData.resimYol);
             try {
