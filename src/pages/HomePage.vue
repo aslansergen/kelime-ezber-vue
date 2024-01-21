@@ -5,6 +5,7 @@
     </h1>
     <div class="content" v-if="show">
         <img class="wordImage" :src="showWord.resimYol">
+        <img @click="denemeButton" class="editButton" src="../assets/editIcon.png">
         <div class="word">
             <span>{{showWord.kelime}} </span>
             <div class="wordReading"> ( {{showWord.okunus}} )</div>
@@ -83,6 +84,11 @@ export default {
         yaz: function(){
             console.log(this.showingCategory)
         },
+        denemeButton: function(){
+            console.log('şlkasd  kdkkdjjfjfjf ');
+            this.$router.push({ name: 'anan', params: { id: 6 } });
+
+        },
         /* kategoriyi değiştir */
         changeWordCategory: function(targetArr){
             if(this.showingCategory.length > 1){
@@ -107,7 +113,6 @@ export default {
                     }
                 }
         },
-
         /* yukarıdaki butonlar */
         setSmileCategory: async function(word){
             if(!this.showWord.btnSmile){
@@ -149,7 +154,6 @@ export default {
                 await  updateDoc(docRef,updatedData);
             }
         },
-
         /* alttaki 4lü butonlar */
         allCategoryActive: function(){
             if(this.activeMenuCategory !== this.btnAllMenuName){
@@ -183,7 +187,6 @@ export default {
                 this.activeMenuCategory =  this.btnAngryMenuName;
             }
         },
-
         prevWord : function(){
             if(this.activeWordNumber  > 0  ){
                 this.activeWordNumber--
@@ -435,5 +438,11 @@ export default {
 .active{
     border:1px solid white !important;
 }
-
+.editButton{
+    width: 19px;
+    position: absolute;
+    left:10px;
+    top:10px;
+    cursor:pointer; 
+}
 </style>
