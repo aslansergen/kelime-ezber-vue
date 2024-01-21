@@ -20,6 +20,7 @@
           {{fileUploadInputButtonText}}
         </label>
         <button class="saveButton" @click="addWordToFirebase" :disabled="formDisabled || sendButtonDisabled"> {{ sendButtonText }} </button>
+        <button class="deleteButton" @click="wordDelete" v-if="deleteButtonShow">Sil</button>
         <p class="formWarningText" v-if="formErrorText !== null">{{formErrorText}}</p>
     </div>
 </template>
@@ -60,6 +61,14 @@ export default {
         }
     },
     methods: {
+        wordDelete : async function(){
+            if(this.isDataValid(this.wordData.resimYol)){
+                await this.imageDelete();
+            }
+            await deleteDoc(doc(db,this.dbName, this.wordData.id));
+            this.formReset();
+            this.editActive = false;
+        },
         consoleData: function(){
             console.log(this.wordData)
         },
@@ -67,10 +76,13 @@ export default {
             this.wordData.resimYol = null;
             this.uploadedImageShow = false;
         },
+        imageDelete: async function(){
+            const imageRef = ref(storage, this.wordData.resimYol);
+            await deleteObject(imageRef);
+        },
         deleteImage: async function(){
-            const fileRef = ref(storage, this.wordData.resimYol);
             try {
-                await deleteObject(fileRef);
+                await this.imageDelete();
                 this.wordData.resimYol = null;
                 this.uploadedImageShow = false;
                 const docRef = doc(db,this.dbName,this.wordData.id)
@@ -187,6 +199,9 @@ export default {
     computed: {
         changeImageBtnShow: function(){
             return this.editActive &&  this.isDataValid(this.wordData.resimYol);
+        },
+        deleteButtonShow: function(){
+            return this.editActive
         }
     },
     watch : {
@@ -316,6 +331,15 @@ h2{
 }
 .form input:disabled{
     background-color: #e2e2e2;    
+}
+.form .deleteButton{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
 }
 </style>
 
