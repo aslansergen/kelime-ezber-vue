@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
     <div class="form">
         <h2 class="pageTitle">
             Kelime Ekleme Sayfası 
@@ -340,6 +341,14 @@ h2{
     padding: 5px 10px;
     margin-top: 15px;
     cursor: pointer;
+}
+.homePageLink{
+    position: absolute;
+    top:10px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
 }
 </style>
 
