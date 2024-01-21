@@ -1,6 +1,10 @@
 <template>
     <div class="form">
-        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
+        <h2 class="pageTitle">
+            Kelime Ekleme Sayfası 
+            <button @click="resimHile">Resim Hilesi</button>
+            <button @click="consoleData">Gelen Resim Bilgisi</button>
+        </h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -20,7 +24,7 @@
     </div>
 </template>
 <script>
-import {auth ,createUser,db,getDocs,getDoc,signInWithEmailAndPassword,
+import {auth ,createUser,db,getDocs,getDoc,
   collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL,
     deleteObject,
 } from '../firebase/config';
@@ -56,19 +60,24 @@ export default {
         }
     },
     methods: {
+        consoleData: function(){
+            console.log(this.wordData)
+        },
+        resimHile: function(){
+            this.wordData.resimYol = null;
+            this.uploadedImageShow = false;
+        },
         deleteImage: async function(){
-            console.log('lan lun ');
             const fileRef = ref(storage, this.wordData.resimYol);
             try {
-                let cc = await deleteObject(fileRef);
+                await deleteObject(fileRef);
                 this.wordData.resimYol = null;
                 this.uploadedImageShow = false;
-                console.log(cc);
+                const docRef = doc(db,this.dbName,this.wordData.id)
+                await  updateDoc(docRef,this.wordData);
             } catch (error) {
                 console.log(error);
             }
-          
-
         },
         isDataValid: function(value){
             if(value !== null && value.trim() !== '' && value !== undefined){
@@ -177,7 +186,7 @@ export default {
     },
     computed: {
         changeImageBtnShow: function(){
-            return  this.editActive && this.wordData.resimYol !== null;
+            return this.editActive &&  this.isDataValid(this.wordData.resimYol);
         }
     },
     watch : {
@@ -219,7 +228,7 @@ export default {
         });
         if(this.editActive && this.$store.state.wordToReplace !== null){
             this.wordData = this.$store.state.wordToReplace;
-            this.uploadedImageShow = true;
+            this.uploadedImageShow = this.isDataValid(this.wordData.resimYol);
             this.sendButtonText = 'Güncelle';
         }
         console.log(this.editActive);
@@ -309,3 +318,5 @@ h2{
     background-color: #e2e2e2;    
 }
 </style>
+
+<!-- resim silindiğinde resmin kayıtlı olduğu  kelideki resim Yoluda silinmeli -->
