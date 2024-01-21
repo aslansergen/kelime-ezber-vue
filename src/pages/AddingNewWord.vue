@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
     <div class="form">
         <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
@@ -10,17 +11,20 @@
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Zarf  Kelimesi" v-model="wordData.zarf" :disabled="formDisabled">
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Fiil  Kelimesi" v-model="wordData.fiil" :disabled="formDisabled">
         <img v-if="uploadedImageShow" class="uploaded-image" :src="wordData.resimYol">
+        <button class="changeImage" v-if="changeImageBtnShow" @click="deleteImage">Farklı Resim Yükle</button>
         <label v-if="!uploadedImageShow" class="file-upload">
           <input type="file" ref="fileInput" @change="handleUpload" :disabled="fileUploadInputDisabled">
           {{fileUploadInputButtonText}}
         </label>
         <button class="saveButton" @click="addWordToFirebase" :disabled="formDisabled || sendButtonDisabled"> {{ sendButtonText }} </button>
+        <button class="deleteButton" @click="wordDelete" v-if="deleteButtonShow">Sil</button>
         <p class="formWarningText" v-if="formErrorText !== null">{{formErrorText}}</p>
     </div>
 </template>
 <script>
-import {auth ,createUser,db,getDocs,getDoc,signInWithEmailAndPassword,
-  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL
+import {auth ,createUser,db,getDocs,getDoc,
+  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL,
+    deleteObject,
 } from '../firebase/config';
 export default {
     name: 'AddingNewWord',
@@ -50,11 +54,37 @@ export default {
             formErrorText:null,
             formDisabled: false,
             sendButtonDisabled:false,
+            editActive : false,
         }
     },
     methods: {
+        wordDelete : async function(){
+            if(this.isDataValid(this.wordData.resimYol)){
+                await this.imageDelete();
+            }
+            await deleteDoc(doc(db,this.dbName, this.wordData.id));
+            this.formReset();
+            this.editActive = false;
+        },
+        imageDelete: async function(){
+            const imageRef = ref(storage, this.wordData.resimYol);
+            await deleteObject(imageRef);
+        },
+        deleteImage: async function(){
+            try {
+                await this.imageDelete();
+                this.wordData.resimYol = null;
+                this.uploadedImageShow = false;
+                if( this.editActive){
+                    const docRef = doc(db,this.dbName,this.wordData.id)
+                    await  updateDoc(docRef,this.wordData);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
         isDataValid: function(value){
-            if(value !== null && value.trim() !== ''){
+            if(value !== null && value.trim() !== '' && value !== undefined){
                 return true;
             }
             return false;
@@ -105,28 +135,52 @@ export default {
             }
             return true;
         },
-        addWordToFirebase :async function(){
-            console.log('asdfajjj');
-            this.formValidationReset();
-            if( !this.formValidation() ){
-                return
-            }
-            console.log(this.wordData);
-            this.formErrorText = null;
+        saveNewWord : async function(){
             try {
                 this.formDisabled = true;
                 this.sendButtonText = 'Yükleniyor...';
                 let res = await addDoc(collection(db,this.dbName), this.wordData);
-                console.log(res.id);
                 this.formDisabled = false;
                 this.formReset();
                 this.formErrorText = "Resim Başarılı Bir Şekilde Yüklendi.";
                 setTimeout(() => {
                     this.formErrorText = null;
                 }, 2000);
-                } catch (error) {
-                    console.log(error);
+            } catch (error) {
+                console.log(error);
             }
+        },
+        updateWord: async function(){
+            try {
+                this.editActive = false;
+                this.formDisabled = true;
+                this.sendButtonText = 'Güncelleniyor...';
+                const wordRef = doc(db,this.dbName,this.wordData.id)
+                await  updateDoc(wordRef,this.wordData);
+                this.formDisabled = false;
+                this.formReset();
+                this.formErrorText = "Resim Başarılı Bir Şekilde Güncellendi.";
+                setTimeout(() => {
+                    this.formErrorText = null;
+                }, 2000);
+                this.$store.commit('setWordToReplace',null);
+            } catch (error) {
+                console.log(error);
+                this.editActive = false;
+            }
+        },
+        addWordToFirebase :async function(){
+            this.formValidationReset();
+            if( !this.formValidation() ){
+                return
+            }
+            this.formErrorText = null;
+            if(this.editActive){
+                this.updateWord()
+            }else{
+                this.saveNewWord();
+            }
+            
         },
         handleUpload: async function(){
             const file = this.$refs.fileInput.files[0]; // Seçilen dosyayı al
@@ -159,6 +213,14 @@ export default {
             }
         } 
     },
+    computed: {
+        changeImageBtnShow: function(){
+            return this.isDataValid(this.wordData.resimYol);
+        },
+        deleteButtonShow: function(){
+            return this.editActive
+        }
+    },
     watch : {
         'wordData.kelime' : function(){
             if(this.kelimeInValid){
@@ -189,6 +251,17 @@ export default {
             if(this.wordNotMeaningError){
                 this.wordNotMeaningError = false;
             }
+        }
+    },
+    created: function(){
+         const urlEditLink =  this.$route.matched.some(item =>{
+            return item.path === "/yeni-kelime/edit"
+        });
+        if(urlEditLink && this.$store.state.wordToReplace !== null){
+            this.wordData = this.$store.state.wordToReplace;
+            this.editActive = true;
+            this.uploadedImageShow = this.isDataValid(this.wordData.resimYol);
+            this.sendButtonText = 'Güncelle';
         }
     }
 }
@@ -242,10 +315,17 @@ h2{
 }
 .uploaded-image{
     width: 200px;
-    height: 150px;
     object-fit: contain;
 }
-
+.changeImage{
+    border: none;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
 .form .formWarningText{
     color:white;
     margin-top:20px;
@@ -268,4 +348,23 @@ h2{
 .form input:disabled{
     background-color: #e2e2e2;    
 }
+.form .deleteButton{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.homePageLink{
+    position: absolute;
+    top:10px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
 </style>
+
+<!-- resim silindiğinde resmin kayıtlı olduğu  kelideki resim Yoluda silinmeli -->
