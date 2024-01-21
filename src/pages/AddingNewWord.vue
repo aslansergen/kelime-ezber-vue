@@ -144,27 +144,52 @@ export default {
             }
             return true;
         },
-        addWordToFirebase :async function(){
-            this.formValidationReset();
-            if( !this.formValidation() ){
-                return
-            }
-            console.log(this.wordData);
-            this.formErrorText = null;
+        saveNewWord : async function(){
             try {
                 this.formDisabled = true;
                 this.sendButtonText = 'Yükleniyor...';
                 let res = await addDoc(collection(db,this.dbName), this.wordData);
-                console.log(res.id);
                 this.formDisabled = false;
                 this.formReset();
                 this.formErrorText = "Resim Başarılı Bir Şekilde Yüklendi.";
                 setTimeout(() => {
                     this.formErrorText = null;
                 }, 2000);
-                } catch (error) {
-                    console.log(error);
+            } catch (error) {
+                console.log(error);
             }
+        },
+        updateWord: async function(){
+            try {
+                this.editActive = false;
+                this.formDisabled = true;
+                this.sendButtonText = 'Güncelleniyor...';
+                const wordRef = doc(db,this.dbName,this.wordData.id)
+                await  updateDoc(wordRef,this.wordData);
+                this.formDisabled = false;
+                this.formReset();
+                this.formErrorText = "Resim Başarılı Bir Şekilde Güncellendi.";
+                setTimeout(() => {
+                    this.formErrorText = null;
+                }, 2000);
+                this.$store.commit('setWordToReplace',null);
+            } catch (error) {
+                console.log(error);
+                this.editActive = false;
+            }
+        },
+        addWordToFirebase :async function(){
+            this.formValidationReset();
+            if( !this.formValidation() ){
+                return
+            }
+            this.formErrorText = null;
+            if(this.editActive){
+                this.updateWord()
+            }else{
+                this.saveNewWord();
+            }
+            
         },
         handleUpload: async function(){
             const file = this.$refs.fileInput.files[0]; // Seçilen dosyayı al
@@ -238,16 +263,15 @@ export default {
         }
     },
     created: function(){
-        console.log(this.$route.matched);
-        this.editActive =  this.$route.matched.some(item =>{
+         const urlEditLink =  this.$route.matched.some(item =>{
             return item.path === "/yeni-kelime/edit"
         });
-        if(this.editActive && this.$store.state.wordToReplace !== null){
+        if(urlEditLink && this.$store.state.wordToReplace !== null){
             this.wordData = this.$store.state.wordToReplace;
+            this.editActive = true;
             this.uploadedImageShow = this.isDataValid(this.wordData.resimYol);
             this.sendButtonText = 'Güncelle';
         }
-        console.log(this.editActive);
     }
 }
 
