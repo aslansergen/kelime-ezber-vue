@@ -86,8 +86,10 @@ export default {
                 await this.imageDelete();
                 this.wordData.resimYol = null;
                 this.uploadedImageShow = false;
-                const docRef = doc(db,this.dbName,this.wordData.id)
-                await  updateDoc(docRef,this.wordData);
+                if( this.editActive){
+                    const docRef = doc(db,this.dbName,this.wordData.id)
+                    await  updateDoc(docRef,this.wordData);
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -224,7 +226,7 @@ export default {
     },
     computed: {
         changeImageBtnShow: function(){
-            return this.editActive &&  this.isDataValid(this.wordData.resimYol);
+            return this.isDataValid(this.wordData.resimYol);
         },
         deleteButtonShow: function(){
             return this.editActive
