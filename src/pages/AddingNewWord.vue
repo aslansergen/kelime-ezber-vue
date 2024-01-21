@@ -1,6 +1,6 @@
 <template>
     <div class="form">
-        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
+        <h2 class="pageTitle">Kelime Ekleme Sayfası  </h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -158,6 +158,11 @@ export default {
                 console.error('Dosya yükleme işlemi başarısız:', error);
             }
         } 
+    },
+    computed: {
+        counter: function(){
+            return this.$store.state.wordToReplace
+        }
     },
     watch : {
         'wordData.kelime' : function(){
