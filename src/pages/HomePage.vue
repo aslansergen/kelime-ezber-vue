@@ -85,6 +85,8 @@ export default {
             console.log(this.showingCategory)
         },
         denemeButton: function(){
+
+            this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
 
         },

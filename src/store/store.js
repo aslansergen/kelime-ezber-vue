@@ -6,6 +6,10 @@ export default createStore({
     wordToReplace : null,
   },
   mutations: {
+    setWordToReplace : function(state, word){
+      console.log(word);
+      state.wordToReplace = word;
+    }
     // Durumu değiştirmek için mutasyonlarınız buraya gelecek
   },
   actions: {

@@ -1,6 +1,6 @@
 <template>
     <div class="form">
-        <h2 class="pageTitle">Kelime Ekleme Sayfası  </h2>
+        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -50,11 +50,12 @@ export default {
             formErrorText:null,
             formDisabled: false,
             sendButtonDisabled:false,
+            editActive : false,
         }
     },
     methods: {
         isDataValid: function(value){
-            if(value !== null && value.trim() !== ''){
+            if(value !== null && value.trim() !== '' && value !== undefined){
                 return true;
             }
             return false;
@@ -106,7 +107,6 @@ export default {
             return true;
         },
         addWordToFirebase :async function(){
-            console.log('asdfajjj');
             this.formValidationReset();
             if( !this.formValidation() ){
                 return
@@ -195,6 +195,18 @@ export default {
                 this.wordNotMeaningError = false;
             }
         }
+    },
+    created: function(){
+        console.log(this.$route.matched);
+        this.editActive =  this.$route.matched.some(item =>{
+            return item.path === "/yeni-kelime/edit"
+        });
+        if(this.editActive && this.$store.state.wordToReplace !== null){
+            this.wordData = this.$store.state.wordToReplace;
+            this.uploadedImageShow = true;
+            this.sendButtonText = 'Güncelle';
+        }
+        console.log(this.editActive);
     }
 }
 
