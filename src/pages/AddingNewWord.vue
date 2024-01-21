@@ -1,11 +1,7 @@
 <template>
     <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
     <div class="form">
-        <h2 class="pageTitle">
-            Kelime Ekleme Sayfası 
-            <button @click="resimHile">Resim Hilesi</button>
-            <button @click="consoleData">Gelen Resim Bilgisi</button>
-        </h2>
+        <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
         <p class="inputErrorText">Lütfen Kelime Giriniz...</p>
         <input type="text" placeholder="Okunuşu" :class="{error:okunusInValid}" v-model="wordData.okunus" :disabled="formDisabled">
@@ -69,13 +65,6 @@ export default {
             await deleteDoc(doc(db,this.dbName, this.wordData.id));
             this.formReset();
             this.editActive = false;
-        },
-        consoleData: function(){
-            console.log(this.wordData)
-        },
-        resimHile: function(){
-            this.wordData.resimYol = null;
-            this.uploadedImageShow = false;
         },
         imageDelete: async function(){
             const imageRef = ref(storage, this.wordData.resimYol);
