@@ -10,7 +10,7 @@ export const routes = [
     {path  : '/kelime' ,component : KelimePage, name: 'kelime'},
     {path  : '/anasayfa' ,component : HomePage, name: 'anasayfa'},
     {path  : '/yeni-kelime' ,component : AddingNewWord, name: 'newWord', children:[
-        {path  : '/yeni-kelime/edit=:id' ,component : AddingNewWord, name:'anan'}
+        {path  : '/yeni-kelime/edit' ,component : AddingNewWord, name:'wordEdit'}
     ]},
     {path  : '/hello' ,component : HelloWorld, name: 'hel'},
 

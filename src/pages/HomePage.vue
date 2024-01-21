@@ -85,8 +85,7 @@ export default {
             console.log(this.showingCategory)
         },
         denemeButton: function(){
-            console.log('şlkasd  kdkkdjjfjfjf ');
-            this.$router.push({ name: 'anan', params: { id: 6 } });
+            this.$router.push({ name: 'wordEdit' });
 
         },
         /* kategoriyi değiştir */
