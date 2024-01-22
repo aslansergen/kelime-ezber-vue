@@ -11,19 +11,6 @@ body{
     overflow: hidden;
     padding-bottom: 40px;
 }
-.border{border:1px solid red;}
-body .hiddenShow{
-    position: absolute;
-    top:45px;
-    right: 17px;
-    color:white;
-    font-weight: bold;
-    border:1px solid white;
-    padding: 5px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-}
 body h1{
     position: relative;
     top:10px;

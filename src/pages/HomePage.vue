@@ -1,16 +1,17 @@
 <template>
-    <div class="hiddenShow">gizle/göster</div>
-    <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}  
-        <button @click="yaz">dddd</button>     
-    </h1>
+    <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
     <div class="content" v-if="show">
-        <img class="wordImage" :src="showWord.resimYol">
-        <img @click="denemeButton" class="editButton" src="../assets/editIcon.png">
+        <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
+        <img @click="wordEditPage" class="editButton" src="../../public/edit.svg">
+        <span @click="hideDisplayedWord = !hideDisplayedWord" class="eyeButton">
+            <img v-if="!hideDisplayedWord" src="../../public/eye.svg">
+            <img v-if="hideDisplayedWord" src="../../public/eye-slash.svg">
+        </span>
         <div class="word">
             <span>{{showWord.kelime}} </span>
             <div class="wordReading"> ( {{showWord.okunus}} )</div>
         </div>
-        <div class="wordMeaning">
+        <div v-if="!hideDisplayedWord" class="wordMeaning">
             <wordMeaning v-for="word in wordMeaningData" :data="word"></wordMeaning>
         </div> 
         <div class="button-container">
@@ -78,17 +79,13 @@ export default {
         btnSmileMenuName : "btnSmile",
         btnThinkMenuName : "btnThink",
         btnAngryMenuName : "btnAngry",
+        hideDisplayedWord: false
       };
     },
     methods:{
-        yaz: function(){
-            console.log(this.showingCategory)
-        },
-        denemeButton: function(){
-
+        wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
-
         },
         /* kategoriyi değiştir */
         changeWordCategory: function(targetArr){
@@ -440,10 +437,17 @@ export default {
     border:1px solid white !important;
 }
 .editButton{
-    width: 19px;
     position: absolute;
     left:10px;
     top:10px;
+    width: 19px;
+    cursor:pointer; 
+}
+.eyeButton{
+    position: absolute;
+    right:10px;
+    top:10px;
+    width: 19px;
     cursor:pointer; 
 }
 </style>
