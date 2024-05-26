@@ -1,5 +1,6 @@
 <template>
     <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
+    <button @click="logOut">Çıkış Yap</button>
     <div class="form">
         <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
@@ -58,6 +59,14 @@ export default {
         }
     },
     methods: {
+        logOut:async function(){
+            try {
+                await signOut(auth);
+                this.$router.push({ name: 'anasayfa' });
+            } catch (error) {
+                console.error(error);
+            }
+        },
         wordDelete : async function(){
             if(this.isDataValid(this.wordData.resimYol)){
                 await this.imageDelete();
