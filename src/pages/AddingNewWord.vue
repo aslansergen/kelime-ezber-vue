@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
-    <button @click="logOut">Çıkış Yap</button>
+    <button @click="logOut" class="logOut">Çıkış Yap</button>
     <div class="form">
         <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
         <input type="text" placeholder="Kelime" :class="{error:kelimeInValid}" v-model="wordData.kelime" :disabled="formDisabled">
@@ -277,6 +277,22 @@ export default {
 
 </script>
 <style scoped>
+.logOut{
+    position: absolute;
+    bottom:30px;
+    right: 20px;
+    color: red;
+    text-decoration: none;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.logOut:hover{
+    text-decoration: none;
+}
+
 h2{
     font-family: 'Shadows Into Light', cursive;
     color:white;
