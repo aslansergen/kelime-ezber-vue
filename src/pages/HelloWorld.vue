@@ -31,18 +31,32 @@
           <input type="file" ref="fileInput">
           <button @click="handleUpload">Yükle</button>
       </div>
+      <hr>
+      <h2>Yeni Kullanıcı Ekleme</h2>
+      <p>Kullnaıcı Adı </p>
+      <input type="text" v-model="newUserName">
+      <p>Email</p>
+      <input type="text" v-model="newUserEmail">
+      <p>şifre</p>
+      <input type="text" v-model="newUserPassword">
+      <p> <button @click="createNewUser">Kaydet</button> </p>
+      <p> {{registerError}} </p>
   </div>
 </template>
 
 <script>
 import {auth ,createUser,db,getDocs,getDoc,signInWithEmailAndPassword,
-  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL
+  collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL, updateProfile
 } from '../firebase/config';
 
 export default {
   name: 'HelloWorld',
   data() {
     return {
+      newUserName: '',
+      newUserEmail: null,
+      newUserPassword: null,
+      registerError: null,
       email: 'sergenaslan09@gmail.com',
       password: 'Kelime11',
       totalData:[],
@@ -54,16 +68,20 @@ export default {
   },
   methods: {
     createNewUser : async function(){
-            createUser(auth, 'sergenaslan09@gmail.com', 'Kelime11')
-            .then((userCredential) => {
-                console.log('Kullanıcı oluşturuldu:', userCredential.user);
-                // Başka işlemler
-            })
-            .catch((error) => {
-                console.log(JSON.stringify(error) )
-                console.log(error.code)
-                // Hata durumunda yapılacak işlemler
-            });
+      try {
+        if(this.newUserName.trim()===''){
+            throw new Error('Kullanıcı adı boş geçilemez')
+        }
+        let userCredential = await createUser(auth, this.newUserEmail,  this.newUserPassword);
+        console.log(userCredential)
+        const user = userCredential.user;
+        const userUpdatedResponse =  updateProfile(user,{ displayName: this.newUserName})
+
+
+      } catch (error) {
+        this.registerError = error.message;
+        console.error(error.message)
+      }
     },
     logout: function(){
       signOut(auth).then((userCredential) => {

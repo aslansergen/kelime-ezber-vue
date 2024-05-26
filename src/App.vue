@@ -3,13 +3,9 @@
 </template>
 
 <script>
-import HelloWorld from './pages/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 

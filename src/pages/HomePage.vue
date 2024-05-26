@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'newWord' }" class="homePageLink">Admin Giriş</router-link>
     <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
     <div class="content" v-if="show">
         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
@@ -284,7 +285,15 @@ export default {
 
 </script>
 <style>
-
+.homePageLink{
+    position: absolute;
+    top:10px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    z-index: 2;
+}
 .content{
     position: absolute;
     bottom: 13vh;
