@@ -1,6 +1,5 @@
 import HelloWorld from './pages/HelloWorld.vue' 
 import GamePage from './pages/GamePage.vue' 
-import KelimePage from './pages/KelimePage.vue' 
 import HomePage from './pages/HomePage.vue' 
 import AddingNewWord from './pages/AddingNewWord.vue' 
 import LoginToAdmin from './pages/LoginToAdmin.vue' 
@@ -21,7 +20,6 @@ const authKontrol = (to, from, next) => {
 export const routes = [
     {path  : '' ,component : HelloWorld, name: 'anasayfa'},
     {path  : '/oyunlar' ,component : GamePage, name: 'oyunlar'},
-    {path  : '/kelime' ,component : KelimePage, name: 'kelime'},
     {path  : '/anasayfa' ,component : HomePage, name: 'anasayfa'},
     {path  : '/yeni-kelime',  beforeEnter:authKontrol, component : AddingNewWord, name: 'newWord', children:[
         {path  : '/yeni-kelime/edit' ,component : AddingNewWord, name:'wordEdit'}

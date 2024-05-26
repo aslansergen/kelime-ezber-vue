@@ -59,7 +59,6 @@
 </template>
 <script>
 import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
-import {data} from '../data.js'
 import wordMeaning from '../components/WordMeaning.vue'
 export default {
     name: 'HelloWorld',
