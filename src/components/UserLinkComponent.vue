@@ -4,7 +4,9 @@
       d
     </span>
     <div :class="{active : active}" class="link-content">
-
+      <router-link class="link" to="/">Home</router-link>
+      <router-link class="link" to="/oyunlar">About</router-link>
+      <router-link class="link" to="/yeni-kelime">Kelime Ekle</router-link>
     </div>
   </div>
 </template>
@@ -14,7 +16,7 @@ export default {
   name: 'UserLinkComponent',
   data() {
     return {
-      active: false,
+      active: true,
       status: 'Hello Vue.js!',
     };
   },
@@ -29,9 +31,18 @@ export default {
 <style scoped>
 .menu-container {
   position: absolute;
+  left: 30px;
   width: 50px;
   height: 50px;
   border: 1px solid red;
+}
+
+.btn{
+  width: 20px;
+  height: 20px; 
+  display: flex;
+  border: 1px solid blue;
+  cursor: pointer;
 }
 .link-content{
   position: absolute;
@@ -39,22 +50,29 @@ export default {
   top: 80px;
   width: 150px;
   height: 150px;
-  border: 1px solid black;
   visibility: hidden;
   background-color: white;
   transition: .3s ease;
   z-index: -5;
+  border-radius: 10px;
+  padding-top: 10px;
+  opacity: 0;
 }
 .link-content.active{
   visibility: visible;
   top: 50px;
   z-index: 1;
+  opacity: 1;
 }
-.btn{
-  width: 20px;
-  height: 20px; 
+.link{
   display: flex;
-  border: 1px solid blue;
-  cursor: pointer;
+  justify-content: center;
+  width: 100%;
+  height: 20px;
+  margin-bottom: 5px;
+  color: black;
+}
+.link:hover{
+  text-decoration: underline;
 }
 </style>
