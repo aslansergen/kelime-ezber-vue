@@ -18,9 +18,8 @@ const authKontrol = (to, from, next) => {
   };
 
 export const routes = [
-    {path  : '' ,component : HelloWorld, name: 'anasayfa' },
+    {path  : '' ,component : HomePage, name: 'anasayfa' },
     {path  : '/oyunlar' ,component : GamePage, name: 'oyunlar'},
-    {path  : '/anasayfa' ,component : HomePage, name: 'anasayfa'},
     {path  : '/yeni-kelime',  beforeEnter:authKontrol, component : AddingNewWord, name: 'newWord', children:[
         {path  : '/yeni-kelime/edit' ,component : AddingNewWord, name:'wordEdit'}
     ]},
