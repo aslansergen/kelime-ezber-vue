@@ -4,8 +4,9 @@
       d
     </span>
     <div :class="{active : active}" class="link-content">
-      <router-link class="link" to="/">Home</router-link>
-      <router-link class="link" to="/oyunlar">About</router-link>
+      <router-link class="link" to="/">Ana Sayfa</router-link>
+      <router-link class="link" to="/oyunlar">Oyunlar</router-link>
+      <router-link class="link" to="/deneme">Deneme</router-link>
       <router-link class="link" to="/yeni-kelime">Kelime Ekle</router-link>
     </div>
   </div>
