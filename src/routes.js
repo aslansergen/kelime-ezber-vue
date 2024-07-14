@@ -3,6 +3,7 @@ import GamePage from './pages/GamePage.vue'
 import HomePage from './pages/HomePage.vue' 
 import AddingNewWord from './pages/AddingNewWord.vue' 
 import LoginToAdmin from './pages/LoginToAdmin.vue' 
+import Deneme from './pages/Deneme.vue' 
 
 import {auth, onAuthStateChanged }  from './firebase/config';
 
@@ -25,6 +26,7 @@ export const routes = [
     ]},
     {path  : '/hello' ,component : HelloWorld, name: 'hel'},
     {path  : '/login' ,component : LoginToAdmin, name: 'giris'},
+    {path  : '/deneme' ,component : Deneme, name: 'deneme'},
 
 ]
 
