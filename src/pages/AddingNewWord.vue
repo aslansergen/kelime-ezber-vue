@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'anasayfa' }" class="homePageLink">Anasayfa</router-link>
+    <UserLinkComponent />
     <button @click="logOut" class="logOut">Çıkış Yap</button>
     <div class="form">
         <h2 class="pageTitle">Kelime Ekleme Sayfası</h2>
@@ -27,6 +27,8 @@ import {auth ,createUser,db,getDocs,getDoc,
   collection ,addDoc,deleteDoc, doc, updateDoc,signOut, storage, ref, uploadBytes,getDownloadURL,
     deleteObject,
 } from '../firebase/config';
+import UserLinkComponent from '../components/UserLinkComponent.vue';
+
 export default {
     name: 'AddingNewWord',
     data() {
@@ -272,6 +274,9 @@ export default {
             this.uploadedImageShow = this.isDataValid(this.wordData.resimYol);
             this.sendButtonText = 'Güncelle';
         }
+    },
+    components : {
+        UserLinkComponent
     }
 }
 

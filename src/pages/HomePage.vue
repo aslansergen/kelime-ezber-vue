@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'newWord' }" class="homePageLink">Admin Giriş</router-link>
+    <UserLinkComponent />
     <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
     <div class="content" v-if="show">
         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
@@ -60,6 +60,8 @@
 <script>
 import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
+import UserLinkComponent from '../components/UserLinkComponent.vue';
+
 export default {
     name: 'HelloWorld',
     data() {
@@ -278,21 +280,13 @@ export default {
         }
     },
     components : {
-        wordMeaning
+        wordMeaning,
+        UserLinkComponent
     }
 }
 
 </script>
 <style>
-.homePageLink{
-    position: absolute;
-    top:10px;
-    left: 20px;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    z-index: 2;
-}
 .content{
     position: absolute;
     bottom: 13vh;
