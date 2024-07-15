@@ -29,32 +29,23 @@ export default {
   },
   methods: {
       searchWord: async function(){
-          console.log(this.wordName);
           const usersRef = collection(db, 'kelime-ezber');
           const q = query(usersRef, where('kelime', '==', this.wordName));
           try {
             const querySnapshot = await getDocs(q);
-            console.log('aaaaa');
-            console.log(q);
-            console.log(querySnapshot);
-            console.log(querySnapshot.empty);
             if(querySnapshot.empty){
               this.noWord = true;
             }else{
               this.resultShow = true;
             }
             querySnapshot.forEach((doc) => {
-              console.log('jjfjfjfjfjf');
-              console.log(doc);
               this.wordResult = { id: doc.id, ...doc.data() };
               this.resultWordName = this.wordResult.kelime;
               this.resultWordText = 
               `${this.wordResult.isim} ${this.wordResult.fiil} ${this.wordResult.sifat} ${this.wordResult.zarf}`;
             });
-            console.log(this.wordResult);
           } catch (error) {
             console.error("Error searching users: ", error);
-            return [];
           }
       },
       clearResult: function(){
