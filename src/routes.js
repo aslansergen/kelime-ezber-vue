@@ -19,14 +19,14 @@ const authKontrol = (to, from, next) => {
   };
 
 export const routes = [
-    {path  : '' ,component : HomePage, name: 'anasayfa' },
+    {path  : '' ,component : HomePage, name: 'anasayfa', meta: { title: 'Anasayfa '}},
     {path  : '/oyunlar' ,component : GamePage, name: 'oyunlar'},
-    {path  : '/yeni-kelime',  beforeEnter:authKontrol, component : AddingNewWord, name: 'newWord', children:[
-        {path  : '/yeni-kelime/edit' ,component : AddingNewWord, name:'wordEdit'}
+    {path  : '/yeni-kelime',  beforeEnter:authKontrol,  meta: { title: 'Yeni Kelime Ekleme'}, component : AddingNewWord, name: 'newWord', children:[
+        {path  : '/yeni-kelime/edit' ,component : AddingNewWord, meta: { title: 'Kelime Düzenleme Sayfası'}, name:'wordEdit'}
     ]},
-    {path  : '/hello' ,component : HelloWorld, name: 'hel'},
-    {path  : '/login' ,component : LoginToAdmin, name: 'giris'},
-    {path  : '/deneme' ,component : Deneme, name: 'deneme'},
+    {path  : '/hello' ,component : HelloWorld, meta: { title: 'Hello'}, name: 'hel'},
+    {path  : '/login' ,component : LoginToAdmin, meta: { title: 'Admin Giriş Sayfası'}, name: 'giris'},
+    {path  : '/deneme' ,component : Deneme, meta: { title: 'Deneme Sayfası'}, name: 'deneme'},
 
 ]
 
