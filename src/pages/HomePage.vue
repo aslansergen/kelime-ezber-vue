@@ -1,5 +1,6 @@
 <template>
     <UserLinkComponent />
+    <SearchComponent />
     <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
     <div class="content" v-if="show">
         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
@@ -61,6 +62,7 @@
 import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
+import SearchComponent from '../components/SearchComponent.vue'
 
 export default {
     name: 'HelloWorld',
@@ -281,7 +283,8 @@ export default {
     },
     components : {
         wordMeaning,
-        UserLinkComponent
+        UserLinkComponent,
+        SearchComponent
     }
 }
 

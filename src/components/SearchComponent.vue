@@ -7,10 +7,9 @@
       <p class="title"> {{resultWordName}} </p>
       <p class="text">  {{resultWordText}} </p>
     </div>
+    <p class="wordNo" v-if="wordNoShow">Kelime Bulunamadı</p>
     <button class="clear-btn" @click="clearResult" v-if="resultShow">Temizle</button>
   </div>
-
-
 </template>
 
 <script>
@@ -20,12 +19,12 @@ export default {
   data() {
     return {
       wordResult: null,
-      resultShow: false,
       resultWordName: null,
       resultWordText: null,
       resultImage: null,
       wordName: null,
       searchInputDisabled: false,
+      noWord: false,
     };
   },
   methods: {
@@ -35,17 +34,23 @@ export default {
           const q = query(usersRef, where('kelime', '==', this.wordName));
           try {
             const querySnapshot = await getDocs(q);
+            console.log('aaaaa');
             console.log(q);
             console.log(querySnapshot);
+            console.log(querySnapshot.empty);
+            if(querySnapshot.empty){
+              this.noWord = true;
+            }else{
+              this.resultShow = true;
+            }
             querySnapshot.forEach((doc) => {
+              console.log('jjfjfjfjfjf');
+              console.log(doc);
               this.wordResult = { id: doc.id, ...doc.data() };
               this.resultWordName = this.wordResult.kelime;
               this.resultWordText = 
               `${this.wordResult.isim} ${this.wordResult.fiil} ${this.wordResult.sifat} ${this.wordResult.zarf}`;
             });
-            if(this.wordResult !== null ){
-              this.resultShow = true;
-            }
             console.log(this.wordResult);
           } catch (error) {
             console.error("Error searching users: ", error);
@@ -56,6 +61,16 @@ export default {
         this.wordResult = null;
         this.resultShow = false;
         this.wordName = null;
+      },
+      dataValid: function(value){
+        if(value  == null || value == undefined ){
+          return false;
+        }else{
+          if (typeof value === 'string' && value.trim() === '') {
+            return false;
+          }
+          return true;
+        }
       }
   },
   computed: {
@@ -65,12 +80,32 @@ export default {
       }else{
         return true;
       }
+    },
+    wordNoShow: function(){
+      if(this.noWord && this.dataValid(this.wordName) && !this.dataValid(this.wordResult)){
+        return true;
+      }else{
+        this.noWord = false;
+        return false;
+      }
+    },
+    resultShow: function(){
+      if( this.dataValid(this.wordResult) && this.dataValid(this.wordName)){
+        return true;
+      }else{
+        this.wordResult = null;
+        return false;
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.wordNo{
+  margin-top: 10px;
+  font-size: 12px;
+}
 .clear-btn{
   background-color: white;
   color: black;
@@ -113,8 +148,10 @@ export default {
 }
 .search-contianer{
   position: absolute;
-  right: 20px;
+  right: 10px;
+  top: 20px;
   width: 250px;
+  z-index: 2;
 }
 .search-input{
  padding: 7px 3px;
