@@ -1,17 +1,21 @@
 <template>
     <div>
-      <p>kaşsdlkfajsdf</p>
+      <p>bbbbb</p>
       <UserLinkComponent />
+      <SearchComponent />
     </div>
   </template>
   
   <script>
-  import UserLinkComponent from '../components/UserLinkComponent.vue';
-  
+import UserLinkComponent from '../components/UserLinkComponent.vue'
+import SearchComponent from '../components/SearchComponent.vue'
+ 
+
   export default {
-    name: 'Deneme', // Ana bileşenin adını belirlemek iyi bir uygulamadır
+    name: 'Deneme',
     components: {
-      UserLinkComponent
+      UserLinkComponent,
+      SearchComponent
     }
   }
   </script>

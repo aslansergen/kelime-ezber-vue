@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, collection, addDoc,deleteDoc,getDoc,doc,updateDoc,} from 'firebase/firestore';
+import { getFirestore, getDocs, collection, addDoc,deleteDoc,getDoc,doc,updateDoc, where, query} from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile,
   onAuthStateChanged} from 'firebase/auth';
 
@@ -28,6 +28,6 @@ const firebaseConfig = {
   
   export { db, auth, createUser, getDocs, collection, addDoc, deleteDoc, doc,
      updateDoc,getDoc, signInWithEmailAndPassword,signOut,
-     storage, ref, uploadBytes,getDownloadURL, storageRef, deleteObject, updateProfile, onAuthStateChanged
+     storage, ref, uploadBytes,getDownloadURL, storageRef, deleteObject, updateProfile, onAuthStateChanged, where, query
     };
 
