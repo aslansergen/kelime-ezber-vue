@@ -1,6 +1,6 @@
 <template>
-   <input v-model="username"/>
-    <button @click="searchWord">lan lun</button>
+   <input class="search-input" v-model="username" :disabled="searchFormDisabled"/>
+    <button class="search-btn" :disabled="searchFormDisabled" @click="searchWord">Ara</button>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'SearchComponent',
   data() {
     return {
-      username: ''
+      searchFormDisabled: false
     };
   },
   methods: {
@@ -35,4 +35,35 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.search-input{
+ padding: 7px 3px;
+ border-radius: 4px;
+ border: none;
+ outline: none;
+ padding-left: 10px;
+}
+.search-btn{
+  cursor: pointer;
+  border: none;
+  background-color: #ff73d5;
+  border:2px solid #ff73d5;
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: white;
+  margin-left: 5px;
+  transition: .3s ease;
+}
+.search-btn:disabled{
+  background-color: #f3b9e2;
+  border:2px solid #f3b9e2;
+}
+.search-btn:disabled:hover{
+  background-color: #f3b9e2;
+}
+.search-btn:hover{
+  background-color: transparent;
+}
+</style>
 

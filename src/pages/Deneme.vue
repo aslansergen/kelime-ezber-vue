@@ -1,7 +1,6 @@
 <template>
     <div>
-      <p>kaşsdlkfajsdf</p>
-     
+      <p>bbbbb</p>
       <UserLinkComponent />
       <SearchComponent />
     </div>
@@ -13,12 +12,7 @@ import SearchComponent from '../components/SearchComponent.vue'
  
 
   export default {
-    name: 'Deneme', // kelime-ezber,
-    data(){
-      return{
-        username: ''
-      }
-    },
+    name: 'Deneme',
     components: {
       UserLinkComponent,
       SearchComponent
