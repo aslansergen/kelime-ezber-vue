@@ -7,6 +7,7 @@
       <p class="title">Nokds</p>
       <p class="text">ladsf jdf</p>
     </div>
+    <button class="clear-btn">Temizle</button>
   </div>
 
 
@@ -56,6 +57,18 @@ export default {
 </script>
 
 <style scoped>
+.clear-btn{
+  background-color: white;
+  color: black;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 12px;
+}
 .result-container{
   width: 240px;
   height: 75px;
@@ -81,7 +94,7 @@ export default {
   font-size: 15px;
 }
 .result-container .text{
-  font-size: 15px;
+  font-size: 12px;
 }
 .search-contianer{
   position: absolute;
