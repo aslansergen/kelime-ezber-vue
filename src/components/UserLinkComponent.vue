@@ -1,7 +1,7 @@
 <template>
   <div class="menu-container">
     <span @click="acBunu" class="btn">
-      d
+      <i class="icon-menu"></i>
     </span>
     <div :class="{active : active}" class="link-content">
       <router-link class="link" to="/">Ana Sayfa</router-link>
