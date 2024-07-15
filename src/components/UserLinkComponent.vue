@@ -1,7 +1,7 @@
 <template>
   <div class="menu-container">
-    <span @click="acBunu" class="btn">
-      <i class="icon-menu"></i>
+    <span @click="active = !active" class="btn">
+      <i :class="active ? 'icon-cancel' : 'icon-menu' "></i>
     </span>
     <div :class="{active : active}" class="link-content">
       <router-link class="link" to="/">Ana Sayfa</router-link>
@@ -17,14 +17,8 @@ export default {
   name: 'UserLinkComponent',
   data() {
     return {
-      active: true,
-      status: 'Hello Vue.js!',
+      active: false,
     };
-  },
-  methods: {
-    acBunu: function(){
-      this.active = !this.active
-    }
   }
 }
 </script>
@@ -32,25 +26,25 @@ export default {
 <style scoped>
 .menu-container {
   position: absolute;
+  top:15px;
   left: 30px;
-  width: 50px;
-  height: 50px;
-  border: 1px solid red;
-}
-
-.btn{
-  width: 20px;
-  height: 20px; 
   display: flex;
-  border: 1px solid blue;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.btn{
+  display: flex;
   cursor: pointer;
+  font-size: 24px;
+  color:white;
 }
 .link-content{
   position: absolute;
   left: 0;
   top: 80px;
   width: 150px;
-  height: 150px;
+  min-height: 100px;
   visibility: hidden;
   background-color: white;
   transition: .3s ease;
@@ -61,9 +55,12 @@ export default {
 }
 .link-content.active{
   visibility: visible;
-  top: 50px;
+  top: 40px;
   z-index: 1;
   opacity: 1;
+}
+.link-content .link:last-child{
+ margin-bottom: 10px;
 }
 .link{
   display: flex;
