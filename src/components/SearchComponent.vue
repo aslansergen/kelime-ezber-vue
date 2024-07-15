@@ -1,13 +1,13 @@
 <template>
   <div class="search-contianer">
-    <input class="search-input" v-model="username" :disabled="searchInputDisabled"/>
+    <input class="search-input" v-model="wordName" :disabled="searchInputDisabled"/>
     <button class="search-btn" :disabled="searchBtnDisabled" @click="searchWord">Ara</button>
-    <div class="result-container">
-      <img src="https://firebasestorage.googleapis.com/v0/b/kelime-ezber-e0e0e.appspot.com/o/kelime-ezber%2Fvisionary.jpg?alt=media&token=b773720c-8547-4528-9023-a968f3fdc372">
-      <p class="title">Nokds</p>
-      <p class="text">ladsf jdf</p>
+    <div class="result-container" v-if="resultShow">
+      <img :src="wordResult.resimYol">
+      <p class="title"> {{resultWordName}} </p>
+      <p class="text">  {{resultWordText}} </p>
     </div>
-    <button class="clear-btn">Temizle</button>
+    <button class="clear-btn" @click="clearResult" v-if="resultShow">Temizle</button>
   </div>
 
 
@@ -19,34 +19,48 @@ export default {
   name: 'SearchComponent',
   data() {
     return {
-      username:'',
+      wordResult: null,
+      resultShow: false,
+      resultWordName: null,
+      resultWordText: null,
+      resultImage: null,
+      wordName: null,
       searchInputDisabled: false,
     };
   },
   methods: {
       searchWord: async function(){
-          console.log(this.username);
+          console.log(this.wordName);
           const usersRef = collection(db, 'kelime-ezber');
-          const q = query(usersRef, where('kelime', '==', this.username));
-          
+          const q = query(usersRef, where('kelime', '==', this.wordName));
           try {
             const querySnapshot = await getDocs(q);
-            const users = [];
             console.log(q);
             console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
-              users.push({ id: doc.id, ...doc.data() });
+              this.wordResult = { id: doc.id, ...doc.data() };
+              this.resultWordName = this.wordResult.kelime;
+              this.resultWordText = 
+              `${this.wordResult.isim} ${this.wordResult.fiil} ${this.wordResult.sifat} ${this.wordResult.zarf}`;
             });
-            console.log(users);
+            if(this.wordResult !== null ){
+              this.resultShow = true;
+            }
+            console.log(this.wordResult);
           } catch (error) {
             console.error("Error searching users: ", error);
             return [];
           }
+      },
+      clearResult: function(){
+        this.wordResult = null;
+        this.resultShow = false;
+        this.wordName = null;
       }
   },
   computed: {
     searchBtnDisabled: function(){
-      if(this.username.length > 1){
+      if(this.wordName !== null ){
         return false;
       }else{
         return true;
@@ -70,7 +84,7 @@ export default {
   font-size: 12px;
 }
 .result-container{
-  width: 240px;
+  width: 250px;
   height: 75px;
   margin-top: 10px;
   background-color: white;
@@ -87,6 +101,7 @@ export default {
   margin-top: 5px;
   margin-right: 10px;
   width: 100px;
+  height: 60px;
 }
 .result-container .title{
   margin-top: 4px;
@@ -99,6 +114,7 @@ export default {
 .search-contianer{
   position: absolute;
   right: 20px;
+  width: 250px;
 }
 .search-input{
  padding: 7px 3px;
