@@ -12,7 +12,7 @@
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Zarf  Kelimesi" v-model="wordData.zarf" :disabled="formDisabled">
         <input type="text" :class="{error:wordNotMeaningError}" placeholder="Fiil  Kelimesi" v-model="wordData.fiil" :disabled="formDisabled">
         <img v-if="uploadedImageShow" class="uploaded-image" :src="wordData.resimYol">
-        <button class="changeImage" v-if="changeImageBtnShow" @click="deleteImage">Farklı Resim Yükle</button>
+        <button class="changeImage" v-if="changeImageBtnShow" :disabled="formDisabled" @click="deleteImage">Farklı Resim Yükle</button>
         <label v-if="!uploadedImageShow" class="file-upload">
           <input type="file" ref="fileInput" @change="handleUpload" :disabled="fileUploadInputDisabled">
           {{fileUploadInputButtonText}}
@@ -73,8 +73,10 @@ export default {
             if(this.isDataValid(this.wordData.resimYol)){
                 await this.imageDelete();
             }
+            this.formDisabled = true;
             await deleteDoc(doc(db,this.dbName, this.wordData.id));
             this.formReset();
+            this.formDisabled = false;
             this.editActive = false;
         },
         imageDelete: async function(){
