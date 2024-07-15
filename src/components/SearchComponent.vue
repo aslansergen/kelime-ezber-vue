@@ -1,6 +1,15 @@
 <template>
-   <input class="search-input" v-model="username" :disabled="searchFormDisabled"/>
-    <button class="search-btn" :disabled="searchFormDisabled" @click="searchWord">Ara</button>
+  <div class="search-contianer">
+    <input class="search-input" v-model="username" :disabled="searchInputDisabled"/>
+    <button class="search-btn" :disabled="searchBtnDisabled" @click="searchWord">Ara</button>
+    <div class="result-container">
+      <img src="https://firebasestorage.googleapis.com/v0/b/kelime-ezber-e0e0e.appspot.com/o/kelime-ezber%2Fvisionary.jpg?alt=media&token=b773720c-8547-4528-9023-a968f3fdc372">
+      <p class="title">Nokds</p>
+      <p class="text">ladsf jdf</p>
+    </div>
+  </div>
+
+
 </template>
 
 <script>
@@ -9,7 +18,8 @@ export default {
   name: 'SearchComponent',
   data() {
     return {
-      searchFormDisabled: false
+      username:'',
+      searchInputDisabled: false,
     };
   },
   methods: {
@@ -32,11 +42,51 @@ export default {
             return [];
           }
       }
-    },
+  },
+  computed: {
+    searchBtnDisabled: function(){
+      if(this.username.length > 1){
+        return false;
+      }else{
+        return true;
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
+.result-container{
+  width: 240px;
+  height: 75px;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+  padding-left: 7px;
+}
+.result-container img{
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 100px;
+}
+.result-container .title{
+  margin-top: 4px;
+  margin-bottom: 3px;
+  font-size: 15px;
+}
+.result-container .text{
+  font-size: 15px;
+}
+.search-contianer{
+  position: absolute;
+  right: 20px;
+}
 .search-input{
  padding: 7px 3px;
  border-radius: 4px;
@@ -56,11 +106,11 @@ export default {
   transition: .3s ease;
 }
 .search-btn:disabled{
-  background-color: #f3b9e2;
-  border:2px solid #f3b9e2;
+  background-color: #f18dd3;
+  border:2px solid #f18dd3;
 }
 .search-btn:disabled:hover{
-  background-color: #f3b9e2;
+  background-color: #f18dd3;
 }
 .search-btn:hover{
   background-color: transparent;
