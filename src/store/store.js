@@ -1,21 +1,24 @@
 import { createStore } from 'vuex';
 
-export default createStore({
+const store = createStore({
   state: {
-    // Durum (state) tanımlamalarınız buraya gelecek
-    wordToReplace : null,
+    counter: 0
   },
   mutations: {
-    setWordToReplace : function(state, word){
-      console.log(word);
-      state.wordToReplace = word;
+    increment(state) {
+      state.counter++;
     }
-    // Durumu değiştirmek için mutasyonlarınız buraya gelecek
   },
   actions: {
-    // Asenkron işlemleri yönetmek için aksiyonlarınız buraya gelecek
+    increment(context) {
+      context.commit('increment');
+    }
   },
   getters: {
-    // Durumu işleyerek yeni değerler elde etmek için getter'larınız buraya gelecek
+    counter(state) {
+      return state.counter;
+    }
   }
 });
+
+export default store;
