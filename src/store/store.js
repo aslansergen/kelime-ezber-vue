@@ -1,21 +1,32 @@
 import { createStore } from 'vuex';
 
-export default createStore({
+const store = createStore({
   state: {
-    // Durum (state) tanımlamalarınız buraya gelecek
-    wordToReplace : null,
+    counter: 0,
+    value: null,
+    totalWordData :[]
   },
   mutations: {
-    setWordToReplace : function(state, word){
-      console.log(word);
-      state.wordToReplace = word;
-    }
-    // Durumu değiştirmek için mutasyonlarınız buraya gelecek
+    increment(state) {
+      state.counter++;
+    },
+    setTotalWordData (state, payload) {
+      state.totalWordData.push(payload) ;
+   }
   },
   actions: {
-    // Asenkron işlemleri yönetmek için aksiyonlarınız buraya gelecek
+    increment(context) {
+      context.commit('increment');
+    }
   },
   getters: {
-    // Durumu işleyerek yeni değerler elde etmek için getter'larınız buraya gelecek
+    counter(state) {
+      return state.counter;
+    },
+    totalWordData(state) {
+      return state.totalWordData;
+    },
   }
 });
+
+export default store;
