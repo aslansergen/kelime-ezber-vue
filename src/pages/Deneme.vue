@@ -1,6 +1,6 @@
 <template>
     <div>
-      <p> {{ counter }} </p>
+      <p> {{ totalData.length }} </p>
       <UserLinkComponent />
       <SearchComponent />
     </div>
@@ -16,7 +16,7 @@ import { mapGetters } from 'vuex';
     name: 'Deneme',
     computed: {
       ...mapGetters({
-        counter : 'counter',
+        totalData : 'totalWordData',
      }),
     },
     components: {
