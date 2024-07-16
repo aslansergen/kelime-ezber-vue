@@ -63,15 +63,12 @@ import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue'
-
+import { mapMutations, mapGetters } from "vuex";
 export default {
     name: 'HelloWorld',
     data() {
       return {
-        deneme : {"kelime":"Engine","isim":"Motor","sifat":"","zarf":"","fiil":"","okunus":"enjın",
-        "resimYol":"engine.jpg","btnSmile":true,"btnThink":false,"btnAngry":false,"knowNumber":-1},
-        totalData: [],
-        collectionName: 'kelime-ezber',
+        collectionName: 'kelime-ezber-local',
         ezberlenenKelime: [],
         ezberlenecekKelime: [],
         bekleyenKelime: [],
@@ -125,7 +122,7 @@ export default {
                    btnThink: false,
                    btnSmile: true
                 }
-                const docRef = doc(db,'kelime-ezber',word.id)
+                const docRef = doc(db,this.collectionName,word.id)
                 await  updateDoc(docRef,updatedData);
             }
         },
@@ -138,7 +135,7 @@ export default {
                    btnThink: true,
                    btnSmile: false
                 }
-                const docRef = doc(db,'kelime-ezber',word.id)
+                const docRef = doc(db, this.collectionName ,word.id)
                 await  updateDoc(docRef,updatedData);
                 this.activeWordNumber = this.activeWordNumber
             }
@@ -152,7 +149,7 @@ export default {
                    btnThink: false,
                    btnSmile: false
                 }
-                const docRef = doc(db,'kelime-ezber',word.id)
+                const docRef = doc(db, this.collectionName ,word.id)
                 await  updateDoc(docRef,updatedData);
             }
         },
@@ -203,8 +200,14 @@ export default {
                 this.activeWordNumber = 0
             }
         },
+        ...mapMutations({
+            setTotalWordData :  'setTotalWordData'
+        }),
     },
     computed: {
+        ...mapGetters({
+            totalData : 'totalWordData',
+        }),
         showWord: function(){
            return this.showingCategory[this.activeWordNumber];
         },
@@ -243,7 +246,7 @@ export default {
                 let wordInfo = {
                     ...item.data(), id: item.id
                 }
-                this.totalData.push(wordInfo);
+                this.setTotalWordData(wordInfo);
                 if(wordInfo.btnAngry === true ){
                     this.bekleyenKelime.push(wordInfo);
                 }
@@ -254,6 +257,7 @@ export default {
                     this.ezberlenenKelime.push(wordInfo);
                 }
             });
+
             this.showingCategory = this.ezberlenecekKelime;
             this.show = true;
             this.activeMenuCategory =  this.btnThinkMenuName;

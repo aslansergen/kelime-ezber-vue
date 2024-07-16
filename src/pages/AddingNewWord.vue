@@ -53,7 +53,7 @@ export default {
                 knowNumber : '0',
                 resimYol: null,
             },
-            dbName : 'kelime-ezber',
+            dbName : 'kelime-ezber-local',
             formErrorText:null,
             formDisabled: false,
             sendButtonDisabled:false,
