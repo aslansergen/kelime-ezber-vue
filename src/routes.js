@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage.vue'
 import AddingNewWord from './pages/AddingNewWord.vue' 
 import LoginToAdmin from './pages/LoginToAdmin.vue' 
 import Deneme from './pages/Deneme.vue' 
+import PageOfAllWords from './pages/PageOfAllWords.vue' 
 
 import {auth, onAuthStateChanged }  from './firebase/config';
 
@@ -27,6 +28,7 @@ export const routes = [
     {path  : '/hello' ,component : HelloWorld, meta: { title: 'Hello'}, name: 'hel'},
     {path  : '/login' ,component : LoginToAdmin, meta: { title: 'Admin Giriş Sayfası'}, name: 'giris'},
     {path  : '/deneme' ,component : Deneme, meta: { title: 'Deneme Sayfası'}, name: 'deneme'},
+    {path  : '/butun-kelimeler' ,component : PageOfAllWords, meta: { title: 'Bütün Kelimeler'}, name: 'PageOfAllWords'},
 
 ]
 
