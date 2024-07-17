@@ -1,17 +1,18 @@
 <template>
+    <UserLinkComponent />
     <table>
       <thead>
         <tr>
-          <th>kd</th>
-          <th>kd</th>
-          <th>kd</th>
+          <th>Kelime</th>
+          <th>Okunus</th>
+          <th>Resim Linki</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>kd</td>
-          <td>kd</td>
-          <td>kd</td>
+        <tr v-for="word in totalData">
+          <td> {{word.kelime}} </td>
+          <td> {{word.okunus}} </td>
+          <td> <a :href="word.resimYol" target="_blank"> Aç </a> </td>
         </tr>
       </tbody>
     </table>
@@ -21,7 +22,7 @@
   </template>
   
   <script>
-
+import UserLinkComponent from '../components/UserLinkComponent.vue'
 import { mapGetters } from 'vuex';
 
 
@@ -31,7 +32,15 @@ import { mapGetters } from 'vuex';
       ...mapGetters({
         totalData : 'totalWordData',
      }),
+     
     },
+    created: function(){
+      console.log('asdfa')
+      console.log(this.totalData);
+    },
+    components: {
+      UserLinkComponent,
+    }
 
   }
   </script>
