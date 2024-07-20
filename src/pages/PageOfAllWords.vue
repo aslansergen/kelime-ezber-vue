@@ -1,6 +1,6 @@
 <template>
     <UserLinkComponent />
-    <table>
+    <table v-if="totalData.length > 0">
       <thead>
         <tr>
           <th>Kelime</th>
@@ -23,7 +23,8 @@
   
   <script>
 import UserLinkComponent from '../components/UserLinkComponent.vue'
-import { mapGetters } from 'vuex';
+import {dataCheck} from '../utili/utility'
+import { mapGetters, mapActions } from 'vuex';
 
 
   export default {
@@ -32,16 +33,20 @@ import { mapGetters } from 'vuex';
       ...mapGetters({
         totalData : 'totalWordData',
      }),
+     ...mapActions({
+      getWordData : "getWordData"
+      })
      
-    },
-    created: function(){
-      console.log('asdfa')
-      console.log(this.totalData);
     },
     components: {
       UserLinkComponent,
+    },
+    created: function(){
+      if(dataCheck(this.totalData)){
+      }else{
+        this.getWordData;
+      }
     }
-
   }
   </script>
   
