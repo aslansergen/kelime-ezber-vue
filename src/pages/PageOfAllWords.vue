@@ -69,35 +69,30 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid white;
     min-height: 100vh;
   }
   .table{
-    border: 1px solid red;
     background-color: white;
     padding: 10px;
     border-radius: 8px;
   }
   .thead{
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
   }
   .theadTh{
-    padding: 7px;
+    padding: 10px 15px;
     width: 100px;
-    border: 1px solid red;
     font-weight: bold;
+    text-wrap: nowrap;
   }
   .tbodyTr{
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
   }
   .tbodyTd{
+    padding: 10px 15px;
     width: 100px;
-    padding: 7px 0;
-    border: 1px solid red;
   }
 </style>
   
