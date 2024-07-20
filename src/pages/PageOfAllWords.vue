@@ -1,6 +1,7 @@
 <template>
     <div class="container">
       <UserLinkComponent />
+      <h2 class="pageTitle">Bütün Kelimeler</h2>
       <div class="table" v-if="totalData.length > 0">
         <div class="thead">
           <div class="theadTh">
@@ -25,10 +26,21 @@
               {{word.okunus}} 
             </div>
             <div class="tbodyTd">
-              {{word.okunus}} 
+              <p class="wordMeaning" v-if="word.fiil !== null">
+                <span> <b>Fiil:</b> {{word.fiil}} </span>
+              </p>
+              <p class="wordMeaning" v-if="word.sifat !== null">
+                <span> <b>Sıfat:</b> {{word.sifat}} </span>
+              </p>
+              <p class="wordMeaning" v-if="word.zarf !== null">
+                <span> <b>Zarf:</b> {{word.zarf}} </span>
+              </p>
+              <p class="wordMeaning" v-if="word.isim !== null">
+                <span> <b>İsim:</b> {{word.isim}} </span>
+              </p>
             </div>
             <div class="tbodyTd">
-              <a :href="word.resimYol" target="_blank"> Aç </a> 
+              <a class="imageLink" :href="word.resimYol" target="_blank"> Aç </a> 
             </div>
           </div>
         </div>
@@ -67,9 +79,18 @@ export default {
 <style scoped>
   .container{
     display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding-top: 60px;
+  }
+  .pageTitle{
+    margin-bottom: 20px;
+    width: 100%;
+    color: white;
+    font-family: 'Shadows Into Light', cursive;
   }
   .table{
     background-color: white;
@@ -89,10 +110,34 @@ export default {
   .tbodyTr{
     display: flex;
     flex-direction: row;
+    border-radius: 5px;
+  }
+  .tbodyTr:nth-child(odd){
+    background-color: #f2f2f2;
   }
   .tbodyTd{
     padding: 10px 15px;
     width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tbodyTd .wordMeaning{
+    display: flex;
+    justify-content: center;
+  }
+  .imageLink{
+    background-color: green;
+    border-radius: 5px;
+    padding: 4px 8px;
+    color: white;
+    transition: .3s ease;
+    border: 2px solid green;
+  }
+  .imageLink:hover{
+    background-color: transparent;
+    color: green;
   }
 </style>
   
