@@ -47,7 +47,6 @@
       </div>
     </div>
   </template>
-  
   <script>
 import UserLinkComponent from '../components/UserLinkComponent.vue'
 import {dataCheck} from '../utili/utility'
@@ -63,14 +62,12 @@ export default {
      ...mapActions({
       getWordData : "getWordData"
       })
-     
     },
     components: {
       UserLinkComponent,
     },
     created: function(){
-      if(dataCheck(this.totalData)){
-      }else{
+      if(!dataCheck(this.totalData)){
         this.getWordData;
       }
     }

@@ -59,11 +59,12 @@
     </div>
 </template>
 <script>
-import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
+import { db, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue'
-import { mapMutations, mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import {dataCheck} from '../utili/utility';
 export default {
     name: 'HelloWorld',
     data() {
@@ -200,13 +201,13 @@ export default {
                 this.activeWordNumber = 0
             }
         },
-        ...mapMutations({
-            setTotalWordData :  'setTotalWordData'
-        }),
     },
     computed: {
         ...mapGetters({
             totalData : 'totalWordData',
+        }),
+        ...mapActions({
+            getWordData : "getWordData"
         }),
         showWord: function(){
            return this.showingCategory[this.activeWordNumber];
@@ -240,13 +241,11 @@ export default {
     },
     created: async function() {
        try {
-            const querySnapshot = await getDocs(collection(db, this.collectionName));
-           /*  const querySnapshot = data; */
-            querySnapshot.forEach(item => {
-                let wordInfo = {
-                    ...item.data(), id: item.id
-                }
-                this.setTotalWordData(wordInfo);
+            if(!dataCheck(this.totalData)){
+              await this.getWordData;
+                console.log('kkkkkkkkkkk');
+            }
+            this.totalData.forEach(wordInfo => {
                 if(wordInfo.btnAngry === true ){
                     this.bekleyenKelime.push(wordInfo);
                 }
@@ -257,13 +256,11 @@ export default {
                     this.ezberlenenKelime.push(wordInfo);
                 }
             });
-
             this.showingCategory = this.ezberlenecekKelime;
             this.show = true;
             this.activeMenuCategory =  this.btnThinkMenuName;
-            /* console.log( JSON.stringify(this.totalData)) */
         } catch (error) {
-        console.error('Veri alınırken hata oluştu:', error);
+            console.error('Veri alınırken hata oluştu:', error);
         }
         
     },

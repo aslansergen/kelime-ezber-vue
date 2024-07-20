@@ -21,29 +21,20 @@ const store = createStore({
     setTotalWordData (state, payload) {
       state.totalWordData = payload;
     },
-
   },
   actions: {
     increment(context) {
       context.commit('increment');
     },
-    
     getWordData: async function({commit}){
-      console.log('--------1------------');
       try {
         const querySnapshot = await getDocs(collection(db, 'kelime-ezber-local'));
-        console.log(querySnapshot);
-       let data = querySnapshot.docs.map(item => {
+        let data = querySnapshot.docs.map(item => {
          return {
              ...item.data(), id: item.id
          }
        });
-       console.log('----------');
-       console.log(data);
        commit('setTotalWordData', data);
-
-        
-        /* console.log( JSON.stringify(this.totalData)) */
       } catch (error) {
         console.error('Veri alınırken hata oluştu:', error);
       }
