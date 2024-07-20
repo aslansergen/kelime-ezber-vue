@@ -157,7 +157,6 @@ export default {
         /* alttaki 4lü butonlar */
         allCategoryActive: function(){
             if(this.activeMenuCategory !== this.btnAllMenuName){
-                console.log('allllllallll');
                 this.activeWordNumber = 0;
                 this.showingCategory = this.totalData;
                 this.activeMenuCategory =  this.btnAllMenuName;
@@ -165,7 +164,6 @@ export default {
         },
         smileCategoryActive: function(){
             if(!this.showWord.btnSmile){
-                console.log('ssssssssssssss');
                 this.activeWordNumber = 0;
                 this.showingCategory = this.ezberlenenKelime;
                 this.activeMenuCategory =  this.btnSmileMenuName;
@@ -173,7 +171,6 @@ export default {
         },
         thinkCategoryActive: function(){
             if(!this.showWord.btnThink){
-                console.log('lan lun lan lun');
                 this.activeWordNumber = 0;
                 this.showingCategory = this.ezberlenecekKelime;
                 this.activeMenuCategory =  this.btnThinkMenuName;
@@ -181,7 +178,6 @@ export default {
         },
         angryCategoryActive: function(){
             if(!this.showWord.btnAngry){
-                console.log('pat pat pat pat pat');
                 this.activeWordNumber = 0;
                 this.showingCategory = this.bekleyenKelime;
                 this.activeMenuCategory =  this.btnAngryMenuName;
@@ -243,7 +239,6 @@ export default {
        try {
             if(!dataCheck(this.totalData)){
               await this.getWordData;
-                console.log('kkkkkkkkkkk');
             }
             this.totalData.forEach(wordInfo => {
                 if(wordInfo.btnAngry === true ){
