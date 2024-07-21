@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="tbody">
-          <div class="tbodyTr" v-for="word in totalData">
+          <div class="tbodyTr" v-for="word in showTableData">
             <div class="tbodyTd">
               {{word.kelime}} 
             </div>
@@ -49,6 +49,7 @@
     </div>
   </template>
   <script>
+import { setTransitionHooks } from 'vue';
 import PaginationComponent from '../components/PaginationComponent.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue'
 import {dataCheck} from '../utili/utility'
@@ -65,10 +66,18 @@ export default {
     },
     methods: {
       changePage: function(number){
-        console.log(number)
+        this.activePage = number
       },
     },
     computed: {
+      showTableData: function(){
+        if(this.totalData.length <= this.tableShowNumber){
+          return this.totalData;
+        }
+        return this.totalData.slice( 
+          (this.activePage * this.tableShowNumber),
+          ((this.activePage + 1)  * this.tableShowNumber))
+      },
       tableLength: function(){
         if(dataCheck(this.totalData)){
           return Math.ceil(this.totalData.length / this.tableShowNumber);
