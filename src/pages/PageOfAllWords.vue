@@ -82,6 +82,7 @@ export default {
     align-items: center;
     min-height: 100vh;
     padding-top: 60px;
+    margin: 0 15px;
   }
   .pageTitle{
     margin-bottom: 20px;
@@ -137,9 +138,6 @@ export default {
     color: green;
   }
  @media ( max-width: 600px) {
-  .container{
-    border: 2px solid blue;
-  }
   .thead{
     display: none;
   }
