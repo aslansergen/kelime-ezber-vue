@@ -1,14 +1,14 @@
 <template>
     <div class="w-100">
         <button @click="firstPage" v-if="firstPageButton" class="btn">
-            <i class="fas fa-angle-double-left">l</i>
+            <i class="icon-angle-double-left"></i>
         </button>
         <button v-for="item in buttons" @click="newPage(item.value)" 
         class="mr-2 me-2"
         :class="item.value === activePage ? 'btnActive':'btn' "
         >{{item.text}} </button>
         <button @click="lastPage" v-if="lastPageButton" class="btn">
-            <i class="fas fa-angle-double-right">r</i>
+            <i class="icon-angle-double-right"></i>
         </button>
     </div>
 </template>
@@ -106,6 +106,8 @@ export default {
     },
     created: async function () {
         this.renderPages();
+        console.log('hhhhhhhhh');
+        console.log(this.data);
     }
 }
 
@@ -116,7 +118,7 @@ export default {
 }
 .mr-2,
 .me-2{
-    margin: 0 15px;
+    margin: 0 6px;
 }
 .btn,
 .btnActive{
@@ -134,7 +136,7 @@ export default {
     background-color: white;
 }
 .btnActive{
-    color: white;
-    background-color: #47BAEA;;
+    color: #47BAEA;
+    background-color: white;
 }
 </style>

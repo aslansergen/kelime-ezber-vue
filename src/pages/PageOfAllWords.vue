@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <PaginationComponent @newpage="changePage" :data="veriLan"/>
+      <PaginationComponent @newpage="changePage" :data="paginationData"/>
     </div>
   </template>
   <script>
@@ -61,10 +61,6 @@ export default {
       return{
         tableShowNumber: 10,
         activePage: 0,
-        veriLan : {
-          page: 0,
-          totalPageCount: 4,
-        }
       }
     },
     methods: {
@@ -74,14 +70,23 @@ export default {
     },
     computed: {
       tableLength: function(){
-        return Math.ceil(60 / this.tableShowNumber);
+        if(dataCheck(this.totalData)){
+          return Math.ceil(this.totalData.length / this.tableShowNumber);
+        }
+        return 0;
+      },
+      paginationData: function(){
+        return{
+          page: this.activePage,
+          totalPageCount: this.tableLength,
+        }
       },
       ...mapGetters({
         totalData : 'totalWordData',
      }),
      ...mapActions({
       getWordData : "getWordData"
-      })
+      }),
     },
     components: {
       UserLinkComponent,
@@ -90,14 +95,6 @@ export default {
     created: function(){
       if(!dataCheck(this.totalData)){
         this.getWordData;
-      }
-      if(dataCheck(this.totalData)){
-        let bb = { 
-          ...this.veriLan,
-          page : this.activePage,
-          totalPageCount: this.tableLength
-        }
-        this.veriLan = JSON.parse(JSON.stringify(bb))
       }
     }
 }
