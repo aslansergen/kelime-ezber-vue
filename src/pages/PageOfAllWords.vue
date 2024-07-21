@@ -136,5 +136,19 @@ export default {
     background-color: transparent;
     color: green;
   }
+ @media ( max-width: 600px) {
+  .container{
+    border: 2px solid blue;
+  }
+  .thead{
+    display: none;
+  }
+  .tbodyTr{
+    flex-wrap: wrap;
+  }
+  .tbodyTd{
+    width: 38%;
+  }
+ }
 </style>
   
