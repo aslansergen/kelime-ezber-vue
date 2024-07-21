@@ -75,8 +75,7 @@ export default {
     },
     computed: {
       tableLength: function(){
-        let bb = Math.ceil(this.totalData / this.tableShowNumber);
-        return bb
+        return Math.ceil(this.totalData.length / this.tableShowNumber);
       },
       ...mapGetters({
         totalData : 'totalWordData',
