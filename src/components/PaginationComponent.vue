@@ -1,13 +1,13 @@
 <template>
     <div class="w-100">
-        <button @click="firstPage" v-if="firstPageButton" class="btn btn-sm btn-outline-dark">
+        <button @click="firstPage" v-if="firstPageButton" class="btn">
             <i class="fas fa-angle-double-left">l</i>
         </button>
         <button v-for="item in buttons" @click="newPage(item.value)" 
-        class="btn  btn-sm mr-2 me-2"
-        :class="item.value === activePage ? 'btn-dark':'btn-outline-dark' "
+        class="mr-2 me-2"
+        :class="item.value === activePage ? 'btnActive':'btn' "
         >{{item.text}} </button>
-        <button @click="lastPage" v-if="lastPageButton" class="btn btn-sm btn-outline-dark">
+        <button @click="lastPage" v-if="lastPageButton" class="btn">
             <i class="fas fa-angle-double-right">r</i>
         </button>
     </div>
@@ -110,3 +110,31 @@ export default {
 }
 
 </script>
+<style scoped>
+.w-100{
+    width: 100%;
+}
+.mr-2,
+.me-2{
+    margin: 0 15px;
+}
+.btn,
+.btnActive{
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.btn:hover{
+    color: #47BAEA;
+    background-color: white;
+}
+.btnActive{
+    color: white;
+    background-color: #47BAEA;;
+}
+</style>

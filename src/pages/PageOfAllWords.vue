@@ -71,11 +71,10 @@ export default {
       changePage: function(number){
         console.log(number)
       },
-      
     },
     computed: {
       tableLength: function(){
-        return Math.ceil(this.totalData.length / this.tableShowNumber);
+        return Math.ceil(60 / this.tableShowNumber);
       },
       ...mapGetters({
         totalData : 'totalWordData',
@@ -124,6 +123,7 @@ export default {
     background-color: white;
     padding: 10px;
     border-radius: 8px;
+    margin-bottom: 20px;
   }
   .thead{
     display: flex;
@@ -166,6 +166,9 @@ export default {
   .imageLink:hover{
     background-color: transparent;
     color: green;
+  }
+  .paginationContainer{
+    width: 100%;
   }
  @media ( max-width: 600px) {
   .thead{
