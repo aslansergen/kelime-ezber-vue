@@ -4,6 +4,9 @@
       <h2 class="pageTitle">Bütün Kelimeler</h2>
       <div class="table" v-if="totalData.length > 0">
         <div class="thead">
+          <div class="tbodyTdNumber">
+            #
+          </div>
           <div class="theadTh">
             Kelime
           </div>
@@ -18,7 +21,10 @@
           </div>
         </div>
         <div class="tbody">
-          <div class="tbodyTr" v-for="word in showTableData">
+          <div class="tbodyTr" v-for="(word, index ) in showTableData">
+            <div class="tbodyTdNumber">
+              {{ (this.tableShowNumber * this.activePage) + (index +1)}}
+            </div>
             <div class="tbodyTd">
               {{word.kelime}} 
             </div>
@@ -137,7 +143,7 @@ export default {
   }
   .theadTh{
     padding: 10px 15px;
-    width: 100px;
+    width: 80px;
     font-weight: bold;
     text-wrap: nowrap;
   }
@@ -151,7 +157,15 @@ export default {
   }
   .tbodyTd{
     padding: 10px 15px;
-    width: 100px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tbodyTdNumber{
+    padding: 10px 15px;
+    width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,6 +199,9 @@ export default {
   }
   .tbodyTd{
     width: 38%;
+  }
+  .tbodyTdNumber{
+    display: none;
   }
  }
 </style>
