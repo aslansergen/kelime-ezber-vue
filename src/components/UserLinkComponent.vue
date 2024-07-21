@@ -7,6 +7,7 @@
       <router-link class="link" to="/">Ana Sayfa</router-link>
       <router-link class="link" to="/oyunlar">Oyunlar</router-link>
       <router-link class="link" to="/deneme">Deneme</router-link>
+      <router-link class="link" to="/butun-kelimeler">Bütün Kelimeler</router-link>
       <router-link class="link" to="/yeni-kelime">Kelime Ekle</router-link>
     </div>
   </div>
