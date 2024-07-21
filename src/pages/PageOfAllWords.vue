@@ -45,9 +45,11 @@
           </div>
         </div>
       </div>
+      <PaginationComponent @newpage="changePage" :data="veriLan"/>
     </div>
   </template>
   <script>
+import PaginationComponent from '../components/PaginationComponent.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue'
 import {dataCheck} from '../utili/utility'
 import { mapGetters, mapActions } from 'vuex';
@@ -55,7 +57,27 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'PageOfAllWords',
+    data(){
+      return{
+        tableShowNumber: 10,
+        activePage: 0,
+        veriLan : {
+          page: 0,
+          totalPageCount: 4,
+        }
+      }
+    },
+    methods: {
+      changePage: function(number){
+        console.log(number)
+      },
+      
+    },
     computed: {
+      tableLength: function(){
+        let bb = Math.ceil(this.totalData / this.tableShowNumber);
+        return bb
+      },
       ...mapGetters({
         totalData : 'totalWordData',
      }),
@@ -65,10 +87,19 @@ export default {
     },
     components: {
       UserLinkComponent,
+      PaginationComponent,
     },
     created: function(){
       if(!dataCheck(this.totalData)){
         this.getWordData;
+      }
+      if(dataCheck(this.totalData)){
+        let bb = { 
+          ...this.veriLan,
+          page : this.activePage,
+          totalPageCount: this.tableLength
+        }
+        this.veriLan = JSON.parse(JSON.stringify(bb))
       }
     }
 }
