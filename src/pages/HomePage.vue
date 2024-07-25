@@ -16,6 +16,7 @@
         <div v-if="!hideDisplayedWord" class="wordMeaning">
             <wordMeaning v-for="word in wordMeaningData" :data="word"></wordMeaning>
         </div> 
+         <!--
         <div class="button-container">
             <button @click="setSmileCategory(showWord)" :class="{active : showWord.btnSmile}">
                 <svg xmlns="http://www.w3.org/2000/svg" height="35" width="35" viewBox="0 0 512 512"><path fill="white" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg> 
@@ -27,10 +28,14 @@
                 <svg fill="white" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M12,13.41,13.41,12,8.46,7.05,7.05,8.46Zm7.07-8.48A9.93,9.93,0,0,0,12,2H11V6h2V4.06A8,8,0,1,1,6.34,6.34l.71-.7L5.64,4.22l-.71.71A10,10,0,1,0,19.07,19.07a10,10,0,0,0,0-14.14Z"/></svg>
             </button>
         </div>
-        <div class="available">{{ activeWordNumber +1}}  </div>
-        <div class="total"> {{ showingCategory.length  }} </div>
-        <button @click="prevWord" class="prev"> &lt; </button>
-        <button @click="nextWord" class="next"> > </button>
+      
+
+           <div class="available">{{ activeWordNumber +1}}  </div>
+           <div class="total"> {{ showingCategory.length  }} </div>
+           <button @click="prevWord" class="prev"> &lt; </button>
+           <button @click="nextWord" class="next"> > </button>
+
+       -->
     </div>
     <div class="menu">
         <button @click="allCategoryActive" :class="{ active: activeMenuCategory === btnAllMenuName }">
@@ -73,7 +78,6 @@ export default {
         ezberlenenKelime: [],
         ezberlenecekKelime: [],
         bekleyenKelime: [],
-        showingCategory:[],
         activeWordNumber: 0,
         show: false,
         activeMenuCategory: null,
@@ -201,6 +205,7 @@ export default {
     computed: {
         ...mapGetters({
             totalData : 'totalWordData',
+            showingCategory : 'showingCategory'
         }),
         ...mapActions({
             getWordData : "getWordData"
@@ -236,28 +241,10 @@ export default {
         }
     },
     created: async function() {
-       try {
-            if(!dataCheck(this.totalData)){
-              await this.getWordData;
-            }
-            this.totalData.forEach(wordInfo => {
-                if(wordInfo.btnAngry === true ){
-                    this.bekleyenKelime.push(wordInfo);
-                }
-                if(wordInfo.btnThink === true ){
-                    this.ezberlenecekKelime.push(wordInfo);
-                }
-                if(wordInfo.btnSmile === true ){
-                    this.ezberlenenKelime.push(wordInfo);
-                }
-            });
-            this.showingCategory = this.ezberlenecekKelime;
-            this.show = true;
-            this.activeMenuCategory =  this.btnThinkMenuName;
-        } catch (error) {
-            console.error('Veri alınırken hata oluştu:', error);
+        if(!dataCheck(this.totalData)){
+            await this.getWordData;
         }
-        
+        this.show =  true ;
     },
     watch :{
         showingCategory: function(){

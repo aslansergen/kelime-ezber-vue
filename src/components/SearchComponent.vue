@@ -29,7 +29,7 @@ export default {
   },
   methods: {
       searchWord: async function(){
-          const usersRef = collection(db, 'kelime-ezber');
+          const usersRef = collection(db, 'kelime-ezber-local');
           const q = query(usersRef, where('kelime', '==', this.wordName));
           try {
             const querySnapshot = await getDocs(q);
@@ -40,6 +40,8 @@ export default {
             }
             querySnapshot.forEach((doc) => {
               this.wordResult = { id: doc.id, ...doc.data() };
+              console.log('-----1111111-----11');
+              console.log(this.wordResult);
               this.resultWordName = this.wordResult.kelime;
               this.resultWordText = 
               `${this.wordResult.isim} ${this.wordResult.fiil} ${this.wordResult.sifat} ${this.wordResult.zarf}`;
