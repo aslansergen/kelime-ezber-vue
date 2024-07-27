@@ -60,6 +60,20 @@ const store = createStore({
     showWord: function(state){
       return state.showingCategory[state.activeWordNumber];
    },
+   wordMeaningData: function(state){
+    const dataWord = [];
+    for(let word in state.showingCategory[state.activeWordNumber]){
+        if(word == 'isim' || word == 'sifat'||word == 'zarf'||word == 'fiil'){
+            if(state.showingCategory[state.activeWordNumber][word] !== ""){
+                dataWord.push({
+                    kategori : word,
+                    anlami : state.showingCategory[state.activeWordNumber][word]
+                })
+            }
+        }
+    }
+    return dataWord;
+},
   },
   mutations: {
     increment(state) {

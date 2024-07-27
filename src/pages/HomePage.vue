@@ -177,24 +177,11 @@ export default {
             thinkCategoryTotalNumber: 'thinkCategoryTotalNumber',
             angryCategoryTotalNumber: 'angryCategoryTotalNumber',
             showWord: 'showWord',
+            wordMeaningData: 'wordMeaningData'
         }),
         ...mapActions({
             getWordData : "getWordData"
         }),
-        wordMeaningData: function(){
-            const dataWord = [];
-            for(let word in this.showingCategory[this.activeWordNumber]){
-                if(word == 'isim' || word == 'sifat'||word == 'zarf'||word == 'fiil'){
-                    if(this.showingCategory[this.activeWordNumber][word] !== ""){
-                        dataWord.push({
-                            kategori : word,
-                            anlami : this.showingCategory[this.activeWordNumber][word]
-                        })
-                    }
-                }
-            }
-            return dataWord;
-        },
     },
     created: async function() {
         if(!dataCheck(this.totalData)){
