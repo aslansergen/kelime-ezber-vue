@@ -76,9 +76,6 @@ const store = createStore({
 },
   },
   mutations: {
-    increment(state) {
-      state.counter++;
-    },
     setTotalWordData (state, payload) {
       state.totalWordData = payload;
     },
@@ -93,9 +90,6 @@ const store = createStore({
     },
     showEzberlenecekKelime(state){
       state.showingCategory = state.ezberlenecekKelime;
-    },
-    setShowWordStatus: function(state){
-      state.showWordStatus = true;
     },
     /* alttaki 4lü butonlar */
     allCategoryActive: function(state){
