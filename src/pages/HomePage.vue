@@ -76,11 +76,12 @@ export default {
     data() {
       return {
         collectionName: 'kelime-ezber-local',
+        show: false,
+        hideDisplayedWord: false,
+        /* altakiler silenecek */
         ezberlenenKelime: [],
         ezberlenecekKelime: [],
         bekleyenKelime: [],
-        show: false,
-        hideDisplayedWord: false
       };
     },
     methods:{
@@ -175,13 +176,11 @@ export default {
             totalWordNumber: 'totalWordNumber',
             thinkCategoryTotalNumber: 'thinkCategoryTotalNumber',
             angryCategoryTotalNumber: 'angryCategoryTotalNumber',
+            showWord: 'showWord',
         }),
         ...mapActions({
             getWordData : "getWordData"
         }),
-        showWord: function(){
-           return this.showingCategory[this.activeWordNumber];
-        },
         wordMeaningData: function(){
             const dataWord = [];
             for(let word in this.showingCategory[this.activeWordNumber]){

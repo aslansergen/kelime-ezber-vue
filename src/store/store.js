@@ -56,7 +56,10 @@ const store = createStore({
     },
     angryCategoryTotalNumber: function(state){
       return state.bekleyenKelime.length;
-    }
+    },
+    showWord: function(state){
+      return state.showingCategory[state.activeWordNumber];
+   },
   },
   mutations: {
     increment(state) {
