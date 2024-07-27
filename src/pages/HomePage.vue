@@ -62,7 +62,7 @@
             <svg fill="white" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M12,13.41,13.41,12,8.46,7.05,7.05,8.46Zm7.07-8.48A9.93,9.93,0,0,0,12,2H11V6h2V4.06A8,8,0,1,1,6.34,6.34l.71-.7L5.64,4.22l-.71.71A10,10,0,1,0,19.07,19.07a10,10,0,0,0,0-14.14Z"/></svg>
         </button>
     </div>
-    <p> {{activeMenuCategory }} </p>
+    <p> {{thinkCategoryTotalNumber }} </p>
 </template>
 <script>
 import { db, updateDoc, doc} from '../firebase/config';
@@ -171,7 +171,10 @@ export default {
             btnSmileMenuName: 'btnSmileMenuName',
             btnThinkMenuName: 'btnThinkMenuName',
             btnAngryMenuName: 'btnAngryMenuName',
-
+            smileCategoryTotalNumber: 'smileCategoryTotalNumber',
+            totalWordNumber: 'totalWordNumber',
+            thinkCategoryTotalNumber: 'thinkCategoryTotalNumber',
+            angryCategoryTotalNumber: 'angryCategoryTotalNumber',
         }),
         ...mapActions({
             getWordData : "getWordData"
@@ -193,42 +196,12 @@ export default {
             }
             return dataWord;
         },
-        totalWordNumber : function(){
-            return this.totalData.length;
-        },
-        smileCategoryTotalNumber: function(){
-            return this.ezberlenenKelime.length;
-        },
-        thinkCategoryTotalNumber : function(){
-            return this.ezberlenecekKelime.length;
-        },
-        angryCategoryTotalNumber: function(){
-            return this.bekleyenKelime.length;
-        }
     },
     created: async function() {
         if(!dataCheck(this.totalData)){
             await this.getWordData;
         }
         this.show =  true ;
-    },
-    watch :{
-        showingCategory: function(){
-            switch (this.activeMenuCategory) {
-                case this.btnAllMenuName:
-                    this.totalData = this.showingCategory;
-                    break;
-                case this.btnSmileMenuName:
-                    this.ezberlenenKelime = this.showingCategory;
-                    break;
-                case this.btnThinkMenuName:
-                    this.ezberlenecekKelime = this.showingCategory;
-                    break;
-                case this.btnAngryMenuName:
-                    this.bekleyenKelime = this.showingCategory;
-                    break;
-            }
-        }
     },
     components : {
         wordMeaning,

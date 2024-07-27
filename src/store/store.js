@@ -44,6 +44,18 @@ const store = createStore({
     },
     btnAngryMenuName: function(state){
       return state.btnAngryMenuName;
+    },
+    smileCategoryTotalNumber: function(state){
+      return state.ezberlenenKelime.length;
+    },
+    totalWordNumber: function(state){
+      return state.totalWordData.length;
+    },
+    thinkCategoryTotalNumber: function(state){
+      return state.ezberlenecekKelime.length;
+    },
+    angryCategoryTotalNumber: function(state){
+      return state.bekleyenKelime.length;
     }
   },
   mutations: {
