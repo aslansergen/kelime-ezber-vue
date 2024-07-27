@@ -97,7 +97,20 @@ const store = createStore({
         state.activeMenuCategory =  state.btnAngryMenuName;
       }
     },
-
+    prevWord : function(state){
+      if(state.activeWordNumber  > 0  ){
+        state.activeWordNumber--
+      }else{
+        state.activeWordNumber = state.showingCategory.length-1;
+      }
+    },
+    nextWord: function(state){
+      if(state.activeWordNumber < state.showingCategory.length-1){
+          state.activeWordNumber++
+      }else{
+          state.activeWordNumber = 0
+      }
+  },
   },
   actions: {
     increment(context) {

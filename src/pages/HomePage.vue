@@ -28,14 +28,14 @@
                 <svg fill="white" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M12,13.41,13.41,12,8.46,7.05,7.05,8.46Zm7.07-8.48A9.93,9.93,0,0,0,12,2H11V6h2V4.06A8,8,0,1,1,6.34,6.34l.71-.7L5.64,4.22l-.71.71A10,10,0,1,0,19.07,19.07a10,10,0,0,0,0-14.14Z"/></svg>
             </button>
         </div>
-      
+       -->
 
            <div class="available">{{ activeWordNumber +1}}  </div>
            <div class="total"> {{ showingCategory.length  }} </div>
            <button @click="prevWord" class="prev"> &lt; </button>
            <button @click="nextWord" class="next"> > </button>
 
-       -->
+      
     </div>
     <div class="menu">
         <button @click="allCategoryActive" :class="{ active: activeMenuCategory === btnAllMenuName }">
@@ -88,6 +88,8 @@ export default {
             allCategoryActive : 'allCategoryActive',
             smileCategoryActive : 'smileCategoryActive',
             thinkCategoryActive : 'thinkCategoryActive',
+            prevWord: 'prevWord',
+            nextWord: 'nextWord',
         }),
         wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);
@@ -157,22 +159,7 @@ export default {
                 const docRef = doc(db, this.collectionName ,word.id)
                 await  updateDoc(docRef,updatedData);
             }
-        },
-
-        prevWord : function(){
-            if(this.activeWordNumber  > 0  ){
-                this.activeWordNumber--
-            }else{
-                this.activeWordNumber = this.showingCategory.length-1;
-            }
-        },
-        nextWord: function(){
-            if(this.activeWordNumber < this.showingCategory.length-1){
-                this.activeWordNumber++
-            }else{
-                this.activeWordNumber = 0
-            }
-        },
+        },       
     },
     computed: {
         ...mapGetters({
