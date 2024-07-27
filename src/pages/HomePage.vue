@@ -62,13 +62,14 @@
             <svg fill="white" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M12,13.41,13.41,12,8.46,7.05,7.05,8.46Zm7.07-8.48A9.93,9.93,0,0,0,12,2H11V6h2V4.06A8,8,0,1,1,6.34,6.34l.71-.7L5.64,4.22l-.71.71A10,10,0,1,0,19.07,19.07a10,10,0,0,0,0-14.14Z"/></svg>
         </button>
     </div>
+    <p> {{activeMenuCategory }} </p>
 </template>
 <script>
 import { db, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue'
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations} from "vuex";
 import {dataCheck} from '../utili/utility';
 export default {
     name: 'HelloWorld',
@@ -83,6 +84,11 @@ export default {
       };
     },
     methods:{
+        ...mapMutations({
+            allCategoryActive : 'allCategoryActive',
+            smileCategoryActive : 'smileCategoryActive',
+            thinkCategoryActive : 'thinkCategoryActive',
+        }),
         wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
@@ -152,35 +158,7 @@ export default {
                 await  updateDoc(docRef,updatedData);
             }
         },
-        /* alttaki 4lü butonlar */
-        allCategoryActive: function(){
-            if(this.activeMenuCategory !== this.btnAllMenuName){
-                this.activeWordNumber = 0;
-                this.showingCategory = this.totalData;
-                this.activeMenuCategory =  this.btnAllMenuName;
-            }
-        },
-        smileCategoryActive: function(){
-            if(!this.showWord.btnSmile){
-                this.activeWordNumber = 0;
-                this.showingCategory = this.ezberlenenKelime;
-                this.activeMenuCategory =  this.btnSmileMenuName;
-            }
-        },
-        thinkCategoryActive: function(){
-            if(!this.showWord.btnThink){
-                this.activeWordNumber = 0;
-                this.showingCategory = this.ezberlenecekKelime;
-                this.activeMenuCategory =  this.btnThinkMenuName;
-            }
-        },
-        angryCategoryActive: function(){
-            if(!this.showWord.btnAngry){
-                this.activeWordNumber = 0;
-                this.showingCategory = this.bekleyenKelime;
-                this.activeMenuCategory =  this.btnAngryMenuName;
-            }
-        },
+
         prevWord : function(){
             if(this.activeWordNumber  > 0  ){
                 this.activeWordNumber--
@@ -200,7 +178,13 @@ export default {
         ...mapGetters({
             totalData : 'totalWordData',
             showingCategory : 'showingCategory',
-            activeWordNumber: 'activeWordNumber'
+            activeWordNumber: 'activeWordNumber',
+            activeMenuCategory: 'activeMenuCategory',
+            btnAllMenuName: 'btnAllMenuName',
+            btnSmileMenuName: 'btnSmileMenuName',
+            btnThinkMenuName: 'btnThinkMenuName',
+            btnAngryMenuName: 'btnAngryMenuName',
+
         }),
         ...mapActions({
             getWordData : "getWordData"

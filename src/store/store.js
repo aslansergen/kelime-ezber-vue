@@ -29,6 +29,21 @@ const store = createStore({
     },
     activeWordNumber: function(state){
       return state.activeWordNumber;
+    },
+    activeMenuCategory: function(state){
+      return state.activeMenuCategory;
+    },
+    btnAllMenuName: function(state){
+      return state.btnAllMenuName;
+    },
+    btnSmileMenuName: function(state){
+      return state.btnSmileMenuName;
+    },
+    btnThinkMenuName: function(state){
+      return state.btnThinkMenuName;
+    },
+    btnAngryMenuName: function(state){
+      return state.btnAngryMenuName;
     }
   },
   mutations: {
@@ -50,9 +65,39 @@ const store = createStore({
     showEzberlenecekKelime(state){
       state.showingCategory = state.ezberlenecekKelime;
     },
-    setShowWordStatus(state){
+    setShowWordStatus: function(state){
       state.showWordStatus = true;
-    }
+    },
+    /* alttaki 4lü butonlar */
+    allCategoryActive: function(state){
+      if(state.activeMenuCategory !== state.btnAllMenuName){
+        state.activeWordNumber = 0;
+        state.showingCategory = state.totalWordData;
+        state.activeMenuCategory =  state.btnAllMenuName;
+      }
+    },
+    smileCategoryActive: function(state){
+      if(!state.showWord.btnSmile){
+        state.activeWordNumber = 0;
+        state.showingCategory = state.ezberlenenKelime;
+        state.activeMenuCategory =  state.btnSmileMenuName;
+      }
+    },
+    thinkCategoryActive: function(state){
+      if(!state.showWord.btnThink){
+        state.activeWordNumber = 0;
+        state.showingCategory = state.ezberlenecekKelime;
+        state.activeMenuCategory =  state.btnThinkMenuName;
+      }
+    },
+    angryCategoryActive: function(state){
+      if(!state.showWord.btnAngry){
+        state.activeWordNumber = 0;
+        state.showingCategory = state.bekleyenKelime;
+        state.activeMenuCategory =  state.btnAngryMenuName;
+      }
+    },
+
   },
   actions: {
     increment(context) {
