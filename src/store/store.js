@@ -9,6 +9,7 @@ const store = createStore({
     ezberlenecekKelime: [],
     ezberlenenKelime: [],
     showingCategory: [],
+    activeWordNumber: 0,
     showWordStatus: false,
     activeMenuCategory: "btnThink",
     btnAllMenuName : "btnAll",
@@ -25,6 +26,9 @@ const store = createStore({
     },
     showingCategory: function(state){
       return state.showingCategory;
+    },
+    activeWordNumber: function(state){
+      return state.activeWordNumber;
     }
   },
   mutations: {

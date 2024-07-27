@@ -78,13 +78,7 @@ export default {
         ezberlenenKelime: [],
         ezberlenecekKelime: [],
         bekleyenKelime: [],
-        activeWordNumber: 0,
         show: false,
-        activeMenuCategory: null,
-        btnAllMenuName : "btnAll",
-        btnSmileMenuName : "btnSmile",
-        btnThinkMenuName : "btnThink",
-        btnAngryMenuName : "btnAngry",
         hideDisplayedWord: false
       };
     },
@@ -205,7 +199,8 @@ export default {
     computed: {
         ...mapGetters({
             totalData : 'totalWordData',
-            showingCategory : 'showingCategory'
+            showingCategory : 'showingCategory',
+            activeWordNumber: 'activeWordNumber'
         }),
         ...mapActions({
             getWordData : "getWordData"
