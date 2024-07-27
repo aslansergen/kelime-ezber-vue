@@ -86,6 +86,9 @@ export default {
             prevWord: 'prevWord',
             nextWord: 'nextWord',
         }),
+        ...mapActions({
+            getWordData : "getWordData"
+        }),
         wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
@@ -173,13 +176,11 @@ export default {
             showWord: 'showWord',
             wordMeaningData: 'wordMeaningData'
         }),
-        ...mapActions({
-            getWordData : "getWordData"
-        }),
+      
     },
     created: async function() {
         if(!dataCheck(this.totalData)){
-            await this.getWordData;
+            await this.getWordData();
         }
         this.show =  true ;
     },

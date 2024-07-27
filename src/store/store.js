@@ -91,6 +91,9 @@ const store = createStore({
     showEzberlenecekKelime(state){
       state.showingCategory = state.ezberlenecekKelime;
     },
+    setShowWordStatus: function(state){
+      state.showWordStatus = true;
+    },
     /* alttaki 4lü butonlar */
     allCategoryActive: function(state){
       if(state.activeMenuCategory !== state.btnAllMenuName){
