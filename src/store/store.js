@@ -195,7 +195,6 @@ const store = createStore({
       }
     },
     setSmileCategory: async function({commit, getters, state}){
-      console.log(getters.showWord);
       if(!getters.showWord.btnSmile){
           commit('changeWordCategory', state.ezberlenenKelime);
           let  updatedData = {
@@ -207,7 +206,33 @@ const store = createStore({
           const docRef = doc(db,state.collectionName,getters.showWord.id)
           await  updateDoc(docRef,updatedData);
       }
-  },
+    },
+    setThinkCategory: async function({commit, getters, state}){
+      if(!getters.showWord.btnThink){
+          commit('changeWordCategory', state.ezberlenecekKelime);
+          let  updatedData = {
+              ...getters.showWord,
+              btnAngry: false,
+              btnThink: true,
+              btnSmile: false
+          }
+          const docRef = doc(db, this.collectionName ,getters.showWord.id);
+          await  updateDoc(docRef,updatedData);
+      }
+    },
+    setAngryCategory: async function({commit, getters, state}){
+      if(!getters.showWord.btnAngry){
+          commit('changeWordCategory', state.bekleyenKelime);
+          let  updatedData = {
+               ...getters.showWord,
+              btnAngry: true,
+              btnThink: false,
+              btnSmile: false
+          }
+          const docRef = doc(db, this.collectionName ,getters.showWord.id);
+          await  updateDoc(docRef,updatedData);
+      }
+    }, 
   }
 });
 

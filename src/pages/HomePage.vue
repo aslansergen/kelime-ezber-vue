@@ -72,10 +72,6 @@ export default {
         collectionName: 'kelime-ezber-local',
         show: false,
         hideDisplayedWord: false,
-        /* altakiler silenecek */
-        ezberlenenKelime: [],
-        ezberlenecekKelime: [],
-        bekleyenKelime: [],
       };
     },
     methods:{
@@ -95,36 +91,6 @@ export default {
             this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
         },
-       
-        /* yukarıdaki butonlar */
-        
-        setThinkCategory: async function(word){
-            if(!this.showWord.btnThink){
-                this.changeWordCategory(this.ezberlenecekKelime);
-                let  updatedData = {
-                   ...word,
-                   btnAngry: false,
-                   btnThink: true,
-                   btnSmile: false
-                }
-                const docRef = doc(db, this.collectionName ,word.id)
-                await  updateDoc(docRef,updatedData);
-                this.activeWordNumber = this.activeWordNumber
-            }
-        },
-        setAngryCategory: async function(word){
-            if(!this.showWord.btnAngry){
-                this.changeWordCategory(this.bekleyenKelime);
-               let  updatedData = {
-                   ...word,
-                   btnAngry: true,
-                   btnThink: false,
-                   btnSmile: false
-                }
-                const docRef = doc(db, this.collectionName ,word.id)
-                await  updateDoc(docRef,updatedData);
-            }
-        },       
     },
     computed: {
         ...mapGetters({
