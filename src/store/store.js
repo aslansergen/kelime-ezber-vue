@@ -138,29 +138,29 @@ const store = createStore({
     },
     /* kategoriyi değiştir */
     changeWordCategory: function(state, payload){
-    console.log('---11111-1--1-1');
-    console.log(payload);
-      /* if(this.showingCategory.length > 1){
-              if(this.activeWordNumber === this.showingCategory.length-1){
-                  this.activeWordNumber--;
-                  this.showingCategory = this.showingCategory.filter(word =>{
-                      if(word.kelime !== this.showingCategory[this.activeWordNumber+1].kelime){
-                          return word;
-                      }else{
-                          targetArr.push(word);
-                      }
-                  });
+      if(state.showingCategory.length > 1){
+
+              if(state.activeWordNumber === state.showingCategory.length-1){
+
+                state.activeWordNumber--;
+                state.showingCategory = state.showingCategory.filter(word =>{
+                    if(word.kelime !== state.showingCategory[state.activeWordNumber+1].kelime){
+                        return word;
+                    }else{
+                        payload.push(word);
+                    }
+                });
 
               }else{
-                  this.showingCategory = this.showingCategory.filter(word =>{
-                      if(word.kelime !== this.showingCategory[this.activeWordNumber].kelime){
-                          return word;
-                      }else{
-                          targetArr.push(word);
-                      }
-                  });
+                state.showingCategory = state.showingCategory.filter(word =>{
+                    if(word.kelime !== state.showingCategory[state.activeWordNumber].kelime){
+                        return word;
+                    }else{
+                        payload.push(word);
+                    }
+                });
               }
-      } */
+      }
     },
   },
   actions: {
