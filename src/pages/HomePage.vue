@@ -2,9 +2,8 @@
     <UserLinkComponent />
     <SearchComponent />
     <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
-    <p> {{ showWord  }} </p>
     <div class="content" v-if="show">
-<!--         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
+        <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
         <img @click="wordEditPage" class="editButton" src="../../public/edit.svg">
         <span @click="hideDisplayedWord = !hideDisplayedWord" class="eyeButton">
             <img v-if="!hideDisplayedWord" src="../../public/eye.svg">
@@ -16,7 +15,7 @@
         </div>
         <div v-if="!hideDisplayedWord" class="wordMeaning">
             <wordMeaning v-for="word in wordMeaningData" :data="word"></wordMeaning>
-        </div>  -->
+        </div> 
          
         <div class="button-container">
             <button @click="setSmileCategory" :class="{active : showWord.btnSmile}">

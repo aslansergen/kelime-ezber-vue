@@ -142,27 +142,25 @@ const store = createStore({
     /* kategoriyi değiştir */
     changeWordCategory: function(state, payload){
       if(state.showingCategory.length > 1){
-
-              if(state.activeWordNumber === state.showingCategory.length-1){
-
-                state.activeWordNumber--;
-                state.showingCategory = state.showingCategory.filter(word =>{
-                    if(word.kelime !== state.showingCategory[state.activeWordNumber+1].kelime){
-                        return word;
-                    }else{
-                        payload.push(word);
-                    }
-                });
-
+        if(state.activeWordNumber === state.showingCategory.length-1){
+          state.activeWordNumber--;
+          state.showingCategory = state.showingCategory.filter(word =>{
+              if(word.id !== state.showingCategory[state.activeWordNumber+1].id){
+                  return word;
               }else{
-                state.showingCategory = state.showingCategory.filter(word =>{
-                    if(word.kelime !== state.showingCategory[state.activeWordNumber].kelime){
-                        return word;
-                    }else{
-                        payload.push(word);
-                    }
-                });
+                  payload.push(word);
               }
+          });
+
+        }else{
+          state.showingCategory = state.showingCategory.filter(word =>{
+              if(word.id !== state.showingCategory[state.activeWordNumber].id){
+                  return word;
+              }else{
+                  payload.push(word);
+              }
+          });
+        }
       }
     },
   },
@@ -198,14 +196,9 @@ const store = createStore({
       }
     },
     setSmileCategory: async function({commit, getters, state}){
-      console.log('kkffjjfjfjfjjfjfjfj');
       console.log(getters.showWord.btnSmile);
        if(!getters.showWord.btnSmile){
-          console.log('nnnnnnnnnnn');
-          console.log(state.collectionName)
-          console.log(db)
-          console.log(getters.showWord.id)
-        /*   commit('changeWordCategory', state.ezberlenenKelime);*/
+          commit('changeWordCategory', state.ezberlenenKelime);
           let  updatedData = {
              ...getters.showWord,
              btnAngry: false,
@@ -217,9 +210,8 @@ const store = createStore({
       } 
     },
     setThinkCategory: async function({commit, getters, state}){
-      console.log('lan luan uan');
       if(!getters.showWord.btnThink){
-         /*  commit('changeWordCategory', state.ezberlenecekKelime); */
+          commit('changeWordCategory', state.ezberlenecekKelime);
           let  updatedData = {
               ...getters.showWord,
               btnAngry: false,
@@ -232,7 +224,7 @@ const store = createStore({
     },
     setAngryCategory: async function({commit, getters, state}){
       if(!getters.showWord.btnAngry){
-         /*  commit('changeWordCategory', state.bekleyenKelime); */
+          commit('changeWordCategory', state.bekleyenKelime);
           let  updatedData = {
                ...getters.showWord,
               btnAngry: true,
