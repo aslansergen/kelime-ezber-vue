@@ -142,7 +142,7 @@ export default {
 .search-contianer{
   position: absolute;
   right: 10px;
-  top: 20px;
+  top: 41px;
   width: 250px;
   z-index: 2;
 }

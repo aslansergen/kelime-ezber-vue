@@ -1,7 +1,7 @@
 <template>
     <UserLinkComponent />
     <SearchComponent />
-    <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
+    <h1>Ezberlenen Kelimeler {{ smileCategoryTotalNumber }}</h1>
     <div class="content" v-if="show">
         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
         <img @click="wordEditPage" class="editButton" src="../../public/edit.svg">
@@ -70,10 +70,6 @@ export default {
         collectionName: 'kelime-ezber-local',
         show: false,
         hideDisplayedWord: false,
-        /* altakiler silenecek */
-        ezberlenenKelime: [],
-        ezberlenecekKelime: [],
-        bekleyenKelime: [],
       };
     },
     methods:{
