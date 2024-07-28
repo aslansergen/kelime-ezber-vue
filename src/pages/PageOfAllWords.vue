@@ -55,11 +55,10 @@
     </div>
   </template>
   <script>
-import { setTransitionHooks } from 'vue';
 import PaginationComponent from '../components/PaginationComponent.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue'
 import {dataCheck} from '../utili/utility'
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 
 export default {
@@ -74,8 +73,14 @@ export default {
       changePage: function(number){
         this.activePage = number
       },
+      ...mapActions({
+        getWordData : "getWordData"
+      }),
     },
     computed: {
+      ...mapState({
+        totalData : 'totalWordData',
+      }),
       showTableData: function(){
         if(this.totalData.length <= this.tableShowNumber){
           return this.totalData;
@@ -96,12 +101,6 @@ export default {
           totalPageCount: this.tableLength,
         }
       },
-      ...mapGetters({
-        totalData : 'totalWordData',
-     }),
-     ...mapActions({
-      getWordData : "getWordData"
-      }),
     },
     components: {
       UserLinkComponent,
@@ -109,7 +108,7 @@ export default {
     },
     created: function(){
       if(!dataCheck(this.totalData)){
-        this.getWordData;
+        this.getWordData();
       }
     }
 }
