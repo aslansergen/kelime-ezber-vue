@@ -2,7 +2,7 @@
   <div class="search-contianer">
     <input class="search-input" v-model="wordName" :disabled="searchInputDisabled"/>
     <button class="search-btn" :disabled="searchBtnDisabled" @click="searchWord">Ara</button>
-    <div class="result-container" v-if="resultShow">
+    <div class="result-container" v-if="resultShow" @click="selectResult">
       <img :src="wordResult.resimYol">
       <p class="title"> {{resultWordName}} </p>
       <p class="text">  {{resultWordText}} </p>
@@ -14,6 +14,7 @@
 
 <script>
 import { db, query, where, collection, getDocs } from '../firebase/config';
+import { mapMutations } from "vuex";
 export default {
   name: 'SearchComponent',
   data() {
@@ -28,6 +29,13 @@ export default {
     };
   },
   methods: {
+      ...mapMutations({
+        searchResultSet: 'searchResultSet'
+      }),
+      selectResult: function(){
+        this.searchResultSet(this.wordResult);
+        this.clearResult();
+      },
       searchWord: async function(){
           const usersRef = collection(db, 'kelime-ezber-local');
           const q = query(usersRef, where('kelime', '==', this.wordName));
@@ -40,8 +48,6 @@ export default {
             }
             querySnapshot.forEach((doc) => {
               this.wordResult = { id: doc.id, ...doc.data() };
-              console.log('-----1111111-----11');
-              console.log(this.wordResult);
               this.resultWordName = this.wordResult.kelime;
               this.resultWordText = 
               `${this.wordResult.isim} ${this.wordResult.fiil} ${this.wordResult.sifat} ${this.wordResult.zarf}`;
@@ -124,6 +130,7 @@ export default {
   align-content: flex-start;
   align-items: flex-start;
   padding-left: 7px;
+  cursor: pointer;
 }
 .result-container img{
   margin-top: 5px;

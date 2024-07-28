@@ -48,6 +48,22 @@ const store = createStore({
 },
   },
   mutations: {
+    searchResultSet: function(state, payload){
+      if(payload.btnSmile){
+        state.showingCategory = state.ezberlenenKelime;
+        state.activeMenuCategory =  state.btnSmileMenuName;
+      }
+      if(payload.btnThink){
+        state.showingCategory = state.ezberlenecekKelime;
+        state.activeMenuCategory =  state.btnThinkMenuName;
+      }
+      if(payload.btnAngry){
+        state.showingCategory = state.bekleyenKelime;
+        state.activeMenuCategory =  state.btnAngryMenuName;
+      }
+      let index = state.showingCategory.findIndex(item => item.id === payload.id);
+      state.activeWordNumber = index;
+    },
     setTotalWordData (state, payload) {
       state.totalWordData = payload;
     },
