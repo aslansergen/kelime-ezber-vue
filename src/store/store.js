@@ -112,6 +112,9 @@ const store = createStore({
           state.activeWordNumber = 0
       }
     },
+    subtractFromOldSeries: function(){
+
+    },
     /* kategoriyi değiştir */
     changeWordCategory: function(state, payload){
       if(state.showingCategory.length > 1){
@@ -122,6 +125,17 @@ const store = createStore({
                   return word;
               }else{
                   payload.push(word);
+                  switch (state.activeMenuCategory) {
+                    case state.btnSmileMenuName:
+                      state.ezberlenenKelime = state.ezberlenenKelime.filter(item => item.id !== word.id);
+                      break;
+                    case state.btnThinkMenuName:
+                      state.ezberlenecekKelime = state.ezberlenecekKelime.filter(item => item.id !== word.id);
+                      break;
+                    case state.btnAngryMenuName:
+                      state.bekleyenKelime = state.bekleyenKelime.filter(item => item.id !== word.id);
+                      break;
+                  }
               }
           });
 
@@ -131,6 +145,17 @@ const store = createStore({
                   return word;
               }else{
                   payload.push(word);
+                  switch (state.activeMenuCategory) {
+                    case state.btnSmileMenuName:
+                      state.ezberlenenKelime = state.ezberlenenKelime.filter(item => item.id !== word.id);
+                      break;
+                    case state.btnThinkMenuName:
+                      state.ezberlenecekKelime = state.ezberlenecekKelime.filter(item => item.id !== word.id);
+                      break;
+                    case state.btnAngryMenuName:
+                      state.bekleyenKelime = state.bekleyenKelime.filter(item => item.id !== word.id);
+                      break;
+                  }
               }
           });
         }
@@ -138,9 +163,6 @@ const store = createStore({
     },
   },
   actions: {
-    increment(context) {
-      context.commit('increment');
-    },
     getWordData: async function({commit, state}){
       try {
         const querySnapshot = await getDocs(collection(db, 'kelime-ezber-local'));
