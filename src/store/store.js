@@ -17,33 +17,6 @@ const store = createStore({
     btnAngryMenuName : "btnAngry",
   },
   getters: {
-    counter(state) {
-      return state.counter;
-    },
-    totalWordData(state) {
-      return state.totalWordData;
-    },
-    showingCategory: function(state){
-      return state.showingCategory;
-    },
-    activeWordNumber: function(state){
-      return state.activeWordNumber;
-    },
-    activeMenuCategory: function(state){
-      return state.activeMenuCategory;
-    },
-    btnAllMenuName: function(state){
-      return state.btnAllMenuName;
-    },
-    btnSmileMenuName: function(state){
-      return state.btnSmileMenuName;
-    },
-    btnThinkMenuName: function(state){
-      return state.btnThinkMenuName;
-    },
-    btnAngryMenuName: function(state){
-      return state.btnAngryMenuName;
-    },
     smileCategoryTotalNumber: function(state){
       return state.ezberlenenKelime.length;
     },

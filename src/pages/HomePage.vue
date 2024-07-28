@@ -61,7 +61,7 @@
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue'
-import { mapGetters, mapActions, mapMutations} from "vuex";
+import { mapGetters, mapActions, mapMutations, mapState} from "vuex";
 import {dataCheck} from '../utili/utility';
 export default {
     name: 'HelloWorld',
@@ -98,15 +98,17 @@ export default {
         },
     },
     computed: {
+        ...mapState([
+            'totalData',
+            'showingCategory', 
+            'activeWordNumber',
+            'activeMenuCategory',
+            'btnAllMenuName',
+            'btnSmileMenuName',
+            'btnThinkMenuName',
+            'btnAngryMenuName',
+        ]),
         ...mapGetters({
-            totalData : 'totalWordData',
-            showingCategory : 'showingCategory',
-            activeWordNumber: 'activeWordNumber',
-            activeMenuCategory: 'activeMenuCategory',
-            btnAllMenuName: 'btnAllMenuName',
-            btnSmileMenuName: 'btnSmileMenuName',
-            btnThinkMenuName: 'btnThinkMenuName',
-            btnAngryMenuName: 'btnAngryMenuName',
             smileCategoryTotalNumber: 'smileCategoryTotalNumber',
             totalWordNumber: 'totalWordNumber',
             thinkCategoryTotalNumber: 'thinkCategoryTotalNumber',
