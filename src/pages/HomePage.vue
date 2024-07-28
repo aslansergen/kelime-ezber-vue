@@ -2,9 +2,9 @@
     <UserLinkComponent />
     <SearchComponent />
     <h1>Ezberlenen Kelimeler {{ ezberlenenKelime.length }}</h1>
-
+    <p> {{ showWord  }} </p>
     <div class="content" v-if="show">
-        <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
+<!--         <img v-if="!hideDisplayedWord" class="wordImage" :src="showWord.resimYol">
         <img @click="wordEditPage" class="editButton" src="../../public/edit.svg">
         <span @click="hideDisplayedWord = !hideDisplayedWord" class="eyeButton">
             <img v-if="!hideDisplayedWord" src="../../public/eye.svg">
@@ -16,16 +16,16 @@
         </div>
         <div v-if="!hideDisplayedWord" class="wordMeaning">
             <wordMeaning v-for="word in wordMeaningData" :data="word"></wordMeaning>
-        </div> 
+        </div>  -->
          
         <div class="button-container">
             <button @click="setSmileCategory" :class="{active : showWord.btnSmile}">
                 <i class="icon-face-smile-regular"></i>
             </button>
-            <button @click="setThinkCategory(showWord)" :class="{active : showWord.btnThink}">
+            <button @click="setThinkCategory" :class="{active : showWord.btnThink}">
                 <i class="icon-face-think-regular"></i>
             </button>
-            <button @click="setAngryCategory(showWord)"  :class="{active : showWord.btnAngry}">
+            <button @click="setAngryCategory"  :class="{active : showWord.btnAngry}">
                 <i class="icon-face-angry-regular"></i>
             </button>
         </div>
@@ -89,7 +89,9 @@ export default {
         }),
         ...mapActions({
             getWordData : "getWordData",
-            setSmileCategory: 'setSmileCategory'
+            setSmileCategory: 'setSmileCategory',
+            setThinkCategory: 'setThinkCategory',
+            setAngryCategory: 'setAngryCategory',
         }),
         wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);

@@ -198,8 +198,14 @@ const store = createStore({
       }
     },
     setSmileCategory: async function({commit, getters, state}){
-      if(!getters.showWord.btnSmile){
-          commit('changeWordCategory', state.ezberlenenKelime);
+      console.log('kkffjjfjfjfjjfjfjfj');
+      console.log(getters.showWord.btnSmile);
+       if(!getters.showWord.btnSmile){
+          console.log('nnnnnnnnnnn');
+          console.log(state.collectionName)
+          console.log(db)
+          console.log(getters.showWord.id)
+        /*   commit('changeWordCategory', state.ezberlenenKelime);*/
           let  updatedData = {
              ...getters.showWord,
              btnAngry: false,
@@ -207,32 +213,33 @@ const store = createStore({
              btnSmile: true
           }
           const docRef = doc(db,state.collectionName,getters.showWord.id)
-          await  updateDoc(docRef,updatedData);
-      }
+          await  updateDoc(docRef,updatedData); 
+      } 
     },
     setThinkCategory: async function({commit, getters, state}){
+      console.log('lan luan uan');
       if(!getters.showWord.btnThink){
-          commit('changeWordCategory', state.ezberlenecekKelime);
+         /*  commit('changeWordCategory', state.ezberlenecekKelime); */
           let  updatedData = {
               ...getters.showWord,
               btnAngry: false,
               btnThink: true,
               btnSmile: false
           }
-          const docRef = doc(db, this.collectionName ,getters.showWord.id);
+          const docRef = doc(db, state.collectionName ,getters.showWord.id);
           await  updateDoc(docRef,updatedData);
       }
     },
     setAngryCategory: async function({commit, getters, state}){
       if(!getters.showWord.btnAngry){
-          commit('changeWordCategory', state.bekleyenKelime);
+         /*  commit('changeWordCategory', state.bekleyenKelime); */
           let  updatedData = {
                ...getters.showWord,
               btnAngry: true,
               btnThink: false,
               btnSmile: false
           }
-          const docRef = doc(db, this.collectionName ,getters.showWord.id);
+          const docRef = doc(db, state.collectionName ,getters.showWord.id);
           await  updateDoc(docRef,updatedData);
       }
     }, 
