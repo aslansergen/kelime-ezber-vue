@@ -102,21 +102,24 @@ const store = createStore({
       }
     },
     smileCategoryActive: function(state){
-      if(!state.showWord.btnSmile){
+      let showWord = state.showingCategory[state.activeWordNumber];
+      if(!showWord.btnSmile){
         state.activeWordNumber = 0;
         state.showingCategory = state.ezberlenenKelime;
         state.activeMenuCategory =  state.btnSmileMenuName;
       }
     },
     thinkCategoryActive: function(state){
-      if(!state.showWord.btnThink){
+      let showWord = state.showingCategory[state.activeWordNumber];
+      if(!showWord.btnThink){
         state.activeWordNumber = 0;
         state.showingCategory = state.ezberlenecekKelime;
         state.activeMenuCategory =  state.btnThinkMenuName;
       }
     },
     angryCategoryActive: function(state){
-      if(!state.showWord.btnAngry){
+      let showWord = state.showingCategory[state.activeWordNumber];
+      if(!showWord.btnAngry){
         state.activeWordNumber = 0;
         state.showingCategory = state.bekleyenKelime;
         state.activeMenuCategory =  state.btnAngryMenuName;

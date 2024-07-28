@@ -59,7 +59,6 @@
     </div>
 </template>
 <script>
-import { db, updateDoc, doc} from '../firebase/config';
 import wordMeaning from '../components/WordMeaning.vue'
 import UserLinkComponent from '../components/UserLinkComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue'
@@ -72,6 +71,10 @@ export default {
         collectionName: 'kelime-ezber-local',
         show: false,
         hideDisplayedWord: false,
+        /* altakiler silenecek */
+        ezberlenenKelime: [],
+        ezberlenecekKelime: [],
+        bekleyenKelime: [],
       };
     },
     methods:{
@@ -79,6 +82,7 @@ export default {
             allCategoryActive : 'allCategoryActive',
             smileCategoryActive : 'smileCategoryActive',
             thinkCategoryActive : 'thinkCategoryActive',
+            angryCategoryActive : 'angryCategoryActive',
             prevWord: 'prevWord',
             nextWord: 'nextWord',
            
