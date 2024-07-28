@@ -2,8 +2,7 @@ import { createStore } from 'vuex';
 import { db, getDocs, collection, updateDoc, doc} from '../firebase/config';
 const store = createStore({
   state: {
-    counter: 0,
-    value: null,
+    collectionName: 'kelime-ezber-local',
     totalWordData :[],
     bekleyenKelime:[],
     ezberlenecekKelime: [],
@@ -136,7 +135,33 @@ const store = createStore({
       }else{
           state.activeWordNumber = 0
       }
-  },
+    },
+    /* kategoriyi değiştir */
+    changeWordCategory: function(state, payload){
+    console.log('---11111-1--1-1');
+    console.log(payload);
+      /* if(this.showingCategory.length > 1){
+              if(this.activeWordNumber === this.showingCategory.length-1){
+                  this.activeWordNumber--;
+                  this.showingCategory = this.showingCategory.filter(word =>{
+                      if(word.kelime !== this.showingCategory[this.activeWordNumber+1].kelime){
+                          return word;
+                      }else{
+                          targetArr.push(word);
+                      }
+                  });
+
+              }else{
+                  this.showingCategory = this.showingCategory.filter(word =>{
+                      if(word.kelime !== this.showingCategory[this.activeWordNumber].kelime){
+                          return word;
+                      }else{
+                          targetArr.push(word);
+                      }
+                  });
+              }
+      } */
+    },
   },
   actions: {
     increment(context) {
@@ -168,7 +193,21 @@ const store = createStore({
       } catch (error) {
         console.error('Veri alınırken hata oluştu:', error);
       }
-    }
+    },
+    setSmileCategory: async function({commit, getters, state}){
+      console.log(getters.showWord);
+      if(!getters.showWord.btnSmile){
+          commit('changeWordCategory', state.ezberlenenKelime);
+          let  updatedData = {
+             ...getters.showWord,
+             btnAngry: false,
+             btnThink: false,
+             btnSmile: true
+          }
+          const docRef = doc(db,state.collectionName,getters.showWord.id)
+          await  updateDoc(docRef,updatedData);
+      }
+  },
   }
 });
 

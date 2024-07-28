@@ -19,7 +19,7 @@
         </div> 
          
         <div class="button-container">
-            <button @click="setSmileCategory(showWord)" :class="{active : showWord.btnSmile}">
+            <button @click="setSmileCategory" :class="{active : showWord.btnSmile}">
                 <i class="icon-face-smile-regular"></i>
             </button>
             <button @click="setThinkCategory(showWord)" :class="{active : showWord.btnThink}">
@@ -85,52 +85,19 @@ export default {
             thinkCategoryActive : 'thinkCategoryActive',
             prevWord: 'prevWord',
             nextWord: 'nextWord',
+           
         }),
         ...mapActions({
-            getWordData : "getWordData"
+            getWordData : "getWordData",
+            setSmileCategory: 'setSmileCategory'
         }),
         wordEditPage: function(){
             this.$store.commit('setWordToReplace',this.showWord);
             this.$router.push({ name: 'wordEdit' });
         },
-        /* kategoriyi değiştir */
-        changeWordCategory: function(targetArr){
-            if(this.showingCategory.length > 1){
-                    if(this.activeWordNumber === this.showingCategory.length-1){
-                        this.activeWordNumber--;
-                        this.showingCategory = this.showingCategory.filter(word =>{
-                            if(word.kelime !== this.showingCategory[this.activeWordNumber+1].kelime){
-                                return word;
-                            }else{
-                                targetArr.push(word);
-                            }
-                        });
-
-                    }else{
-                        this.showingCategory = this.showingCategory.filter(word =>{
-                            if(word.kelime !== this.showingCategory[this.activeWordNumber].kelime){
-                                return word;
-                            }else{
-                                targetArr.push(word);
-                            }
-                        });
-                    }
-                }
-        },
+       
         /* yukarıdaki butonlar */
-        setSmileCategory: async function(word){
-            if(!this.showWord.btnSmile){
-                this.changeWordCategory(this.ezberlenenKelime);
-                let  updatedData = {
-                   ...word,
-                   btnAngry: false,
-                   btnThink: false,
-                   btnSmile: true
-                }
-                const docRef = doc(db,this.collectionName,word.id)
-                await  updateDoc(docRef,updatedData);
-            }
-        },
+        
         setThinkCategory: async function(word){
             if(!this.showWord.btnThink){
                 this.changeWordCategory(this.ezberlenecekKelime);
